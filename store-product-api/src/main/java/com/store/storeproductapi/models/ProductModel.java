@@ -2,6 +2,8 @@ package com.store.storeproductapi.models;
 
 import java.util.Objects;
 
+import com.store.storeproductapi.utils.ArgumentVerifier;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,9 +25,9 @@ public class ProductModel {
     public ProductModel() {
     }
 
-    public ProductModel(String id, String title, float price, String description, String imgUrl, int quantity,
+    public ProductModel(String title, float price, String description, String imgUrl, int quantity,
             float avgUserRating, int numberOfVotes, boolean visible) {
-        this.id = id;
+        ArgumentVerifier.verifyNotNull(title, description, imgUrl);
         this.title = title;
         this.price = price;
         this.description = description;

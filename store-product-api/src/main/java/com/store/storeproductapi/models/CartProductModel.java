@@ -2,6 +2,8 @@ package com.store.storeproductapi.models;
 
 import java.util.Objects;
 
+import com.store.storeproductapi.utils.ArgumentVerifier;
+
 public class CartProductModel {
     
     private String productId;
@@ -11,6 +13,7 @@ public class CartProductModel {
     }
 
     public CartProductModel(String productId, int selectedQuantity) {
+        ArgumentVerifier.verifyNotNull(productId);
         this.productId = productId;
         this.selectedQuantity = selectedQuantity;
     }

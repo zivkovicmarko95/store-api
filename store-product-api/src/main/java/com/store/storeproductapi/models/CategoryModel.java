@@ -3,6 +3,8 @@ package com.store.storeproductapi.models;
 import java.util.Objects;
 import java.util.Set;
 
+import com.store.storeproductapi.utils.ArgumentVerifier;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,8 +21,8 @@ public class CategoryModel {
     public CategoryModel() {
     }
 
-    public CategoryModel(String id, String title, String description, Set<String> productIds, boolean visible) {
-        this.id = id;
+    public CategoryModel(String title, String description, Set<String> productIds, boolean visible) {
+        ArgumentVerifier.verifyNotNull(title, description);
         this.title = title;
         this.description = description;
         this.productIds = productIds;
