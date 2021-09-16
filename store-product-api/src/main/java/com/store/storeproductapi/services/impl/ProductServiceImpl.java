@@ -97,6 +97,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductModel updateProductQuantity(String productId, int quantity) {
+        ArgumentVerifier.verifyNotNull(productId);
+
+        final ProductModel product = findById(productId);
+
+        if (product.getQuantity() < quantity) {
+            throw new ResourceStateException(
+                String.format(
+                    "Updating quanity of the product with product ID %s is not possible, because quanity %d is more then available products.",
+                    product,
+                    quantity
+                )
+            );
+        }
+        product.setQuantity(product.getQuantity() - quantity);
+
+        LOGGER.info("Updating quanity {} of the product with id {}", quantity, productId);
+
+        return productRepository.save(product);
+    }
+
+    @Override
     public ProductModel removeProduct(String id) {
         ArgumentVerifier.verifyNotNull(id);
         

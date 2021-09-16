@@ -43,6 +43,15 @@ public interface ProductService {
     ProductModel createProduct(String title, float price, String description, String imgUrl, int quantity);
 
     /**
+     * Method that updates quantity of the particular product
+     * 
+     * @param productId ID of the product
+     * @param quantity quantity to be updated
+     * @return Updated {@link ProductModel}
+     */
+    ProductModel updateProductQuantity(final String productId, final int quantity);
+
+    /**
      * Method that sets visible status of {@link ProductModel} to be false
      * 
      * @param id ID of the product

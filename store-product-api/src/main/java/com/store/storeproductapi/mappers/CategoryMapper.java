@@ -8,6 +8,8 @@ import com.store.storeproductapi.models.ProductModel;
 import com.store.storeproductapi.transferobjects.CategoryTO;
 import com.store.storeproductapi.transferobjects.ProductTO;
 
+import org.springframework.util.CollectionUtils;
+
 public class CategoryMapper {
     
     private CategoryMapper() {
@@ -24,6 +26,10 @@ public class CategoryMapper {
     }
 
     private static Set<ProductTO> mapRepoToProductTOs(Set<ProductModel> productModels) {
+
+        if (CollectionUtils.isEmpty(productModels)) {
+            return Set.of();
+        }
 
         return productModels.stream()
             .map(productModel -> ProductMapper.mapRepoToProductTO(productModel))
