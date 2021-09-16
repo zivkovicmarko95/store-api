@@ -12,7 +12,6 @@ public class ProductTO {
     private int quantity;
     private float avgUserRating;
     private int numberOfVotes;
-    private boolean visible;
 
     public String getId() {
         return this.id;
@@ -78,18 +77,6 @@ public class ProductTO {
         this.numberOfVotes = numberOfVotes;
     }
 
-    public boolean isVisible() {
-        return this.visible;
-    }
-
-    public boolean getVisible() {
-        return this.visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public ProductTO id(String id) {
         this.id = id;
         return this;
@@ -130,11 +117,6 @@ public class ProductTO {
         return this;
     }
 
-    public ProductTO visible(boolean visible) {
-        this.visible = visible;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -150,13 +132,12 @@ public class ProductTO {
                 Objects.equals(imgUrl, productTO.imgUrl) && 
                 quantity == productTO.quantity && 
                 avgUserRating == productTO.avgUserRating && 
-                numberOfVotes == productTO.numberOfVotes && 
-                visible == productTO.visible;
+                numberOfVotes == productTO.numberOfVotes;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price, description, imgUrl, quantity, avgUserRating, numberOfVotes, visible);
+        return Objects.hash(id, title, price, description, imgUrl, quantity, avgUserRating, numberOfVotes);
     }
 
     @Override
@@ -170,7 +151,6 @@ public class ProductTO {
             ", quantity='" + getQuantity() + "'" +
             ", avgUserRating='" + getAvgUserRating() + "'" +
             ", numberOfVotes='" + getNumberOfVotes() + "'" +
-            ", visible='" + isVisible() + "'" +
             "}";
     }
 

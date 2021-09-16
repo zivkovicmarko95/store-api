@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.store.storeproductapi.exceptions.ResourceStateException;
 import com.store.storeproductapi.exceptions.StoreGeneralException;
+import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
 import com.store.storeproductapi.repositories.CartRepository;
@@ -42,8 +43,15 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartModel findByAccountId(final String accountId) {
-        // TODO Auto-generated method stub
-        return null;
+        ArgumentVerifier.verifyNotNull(accountId);
+        
+        return cartRepository.findByAccountId(accountId)
+            .orElseThrow(() -> new StoreGeneralException(
+                String.format(
+                    "Provided account does not have assigned any cart id %s",
+                    accountId
+                )
+            ));
     }
 
     @Override
@@ -59,10 +67,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartModel addToCart(final String cartId, final String productId, final int quantity) {
-        ArgumentVerifier.verifyNotNull(cartId, productId);
+    public CartModel addToCart(final String cartId, final String accountId, final String productId, final int quantity) {
+        ArgumentVerifier.verifyNotNull(cartId, accountId, productId);
         
         final CartModel cart = findById(cartId);
+
+        if (!cart.getAccountId().equals(accountId)) {
+            throw new ResourceStateException(
+                String.format(
+                    "Provided account %s does not owns the cart %s",
+                    accountId,
+                    cartId
+                )
+            );
+        }
+
         final CartProductModel cartProduct = new CartProductModel(productId, quantity);
 
         if (!cart.getCartProducts().add(cartProduct)) {
@@ -79,7 +98,41 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public CartModel removeProductFromCart(final String cartId, final String accountId, final String productId) {
+        ArgumentVerifier.verifyNotNull(cartId, accountId, productId);
+
+        final CartModel cart = findById(cartId);
+
+        // add as pre-auth method
+        if (!cart.getAccountId().equals(accountId)) {
+            throw new ResourceStateException(
+                String.format(
+                    "Provided account %s does not owns the cart %s",
+                    accountId,
+                    cartId
+                )
+            );
+        }
+
+        final CartProductModel cartProduct = cart.getCartProducts().stream()
+            .filter(product -> product.getProductId().equals(productId))
+            .findFirst()
+            .orElseThrow(() -> new StoreResourceNotFoundException(
+                String.format(
+                    "Provided product ID and IDs in the cart does not match",
+                    productId,
+                    cart
+                )
+            ));
+
+        cart.getCartProducts().remove(cartProduct);
+
+        return cartRepository.save(cart);
+    }
+
+    @Override
     public void removeCart(String cartId) {
+        ArgumentVerifier.verifyNotNull(cartId);
         LOGGER.info("Removing cart with id {}", cartId);
         
         final CartModel cart = findById(cartId);

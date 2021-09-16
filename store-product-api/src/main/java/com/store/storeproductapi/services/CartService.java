@@ -34,11 +34,22 @@ public interface CartService {
      * Method that add product to cart
      * 
      * @param cartId ID of the cart
+     * @param accountId ID of the account
      * @param productId ID of the product
      * @param quantity quantity of the product
      * @return updated {@link CartModel}
      */
-    CartModel addToCart(final String cartId, final String productId, final int quantity);
+    CartModel addToCart(final String cartId, final String accountId, final String productId, final int quantity);
+
+    /**
+     * Method that removes product from the cart
+     * 
+     * @param cartId ID of the cart
+     * @param accountId ID of the account
+     * @param productId ID of the product
+     * @return updated {@link CartModel}
+     */
+    CartModel removeProductFromCart(final String cartId, final String accountId, final String productId);
 
     /**
      * Method that removes cart

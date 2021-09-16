@@ -4,15 +4,43 @@ import java.util.Objects;
 
 public class CartProductTO {
     
-    private ProductTO product;
+    private String id;
+    private String title;
+    private float price;
     private int selectedQuantity;
 
-    public ProductTO getProduct() {
-        return this.product;
+    public CartProductTO() {
     }
 
-    public void setProduct(ProductTO product) {
-        this.product = product;
+    public CartProductTO(String id, String title, float price, int selectedQuantity) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.selectedQuantity = selectedQuantity;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public float getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public int getSelectedQuantity() {
@@ -23,8 +51,18 @@ public class CartProductTO {
         this.selectedQuantity = selectedQuantity;
     }
 
-    public CartProductTO product(ProductTO product) {
-        this.product = product;
+    public CartProductTO id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public CartProductTO title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public CartProductTO price(float price) {
+        this.price = price;
         return this;
     }
 
@@ -41,19 +79,23 @@ public class CartProductTO {
             return false;
         }
         CartProductTO cartProductTO = (CartProductTO) o;
-        return Objects.equals(product, cartProductTO.product) && 
+        return Objects.equals(id, cartProductTO.id) && 
+                Objects.equals(title, cartProductTO.title) && 
+                price == cartProductTO.price && 
                 selectedQuantity == cartProductTO.selectedQuantity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, selectedQuantity);
+        return Objects.hash(id, title, price, selectedQuantity);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " product='" + getProduct() + "'" +
+            " id='" + getId() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", price='" + getPrice() + "'" +
             ", selectedQuantity='" + getSelectedQuantity() + "'" +
             "}";
     }

@@ -8,8 +8,7 @@ public class CategoryTO {
     private String id;
     private String title;
     private String description;
-    private Set<ProductTO> productIds;
-    private boolean visible;
+    private Set<ProductTO> products;
 
     public String getId() {
         return this.id;
@@ -35,24 +34,12 @@ public class CategoryTO {
         this.description = description;
     }
 
-    public Set<ProductTO> getProductIds() {
-        return this.productIds;
+    public Set<ProductTO> getProducts() {
+        return this.products;
     }
 
-    public void setProductIds(Set<ProductTO> productIds) {
-        this.productIds = productIds;
-    }
-
-    public boolean isVisible() {
-        return this.visible;
-    }
-
-    public boolean getVisible() {
-        return this.visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setProducts(Set<ProductTO> products) {
+        this.products = products;
     }
 
     public CategoryTO id(String id) {
@@ -70,13 +57,8 @@ public class CategoryTO {
         return this;
     }
 
-    public CategoryTO productIds(Set<ProductTO> productIds) {
-        this.productIds = productIds;
-        return this;
-    }
-
-    public CategoryTO visible(boolean visible) {
-        this.visible = visible;
+    public CategoryTO products(Set<ProductTO> products) {
+        this.products = products;
         return this;
     }
 
@@ -91,13 +73,12 @@ public class CategoryTO {
         return Objects.equals(id, categoryTO.id) && 
                 Objects.equals(title, categoryTO.title) && 
                 Objects.equals(description, categoryTO.description) && 
-                Objects.equals(productIds, categoryTO.productIds) && 
-                visible == categoryTO.visible;
+                Objects.equals(products, categoryTO.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, productIds, visible);
+        return Objects.hash(id, title, description, products);
     }
 
     @Override
@@ -106,9 +87,8 @@ public class CategoryTO {
             " id='" + getId() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
-            ", productIds='" + getProductIds() + "'" +
-            ", visible='" + isVisible() + "'" +
+            ", products='" + getProducts() + "'" +
             "}";
     }
-
+    
 }

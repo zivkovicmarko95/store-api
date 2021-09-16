@@ -93,6 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryModel assignProductsToCategory(Set<String> productIds, String categoryId) {
         ArgumentVerifier.verifyNotNull(categoryId);
+        ArgumentVerifier.verifyNotEmpty(productIds);
         
         if (CollectionUtils.isEmpty(productIds)) {
             throw new StoreGeneralException(
