@@ -94,12 +94,6 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryModel assignProductsToCategory(Set<String> productIds, String categoryId) {
         ArgumentVerifier.verifyNotNull(categoryId);
         ArgumentVerifier.verifyNotEmpty(productIds);
-        
-        if (CollectionUtils.isEmpty(productIds)) {
-            throw new StoreGeneralException(
-                "Provided set of product Ids are empty"
-            );
-        }
 
         final CategoryModel category = findById(categoryId);
         
