@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.store.storeproductapi.exceptions.ResourceExistException;
 import com.store.storeproductapi.exceptions.ResourceStateException;
-import com.store.storeproductapi.exceptions.StoreGeneralException;
 import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.CategoryModel;
 import com.store.storeproductapi.repositories.CategoryRepository;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

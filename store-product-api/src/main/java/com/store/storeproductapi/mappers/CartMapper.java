@@ -16,25 +16,25 @@ public class CartMapper {
         
     }
 
-    public static CartTO mapRepoToCartTO(final CartModel cart, final Set<ProductModel> productModels) {
+    public static CartTO mapRepoToCartTO(final CartModel cart, final Set<ProductModel> products) {
         
         return new CartTO()
             .id(cart.getId())
-            .cartProducts(mapRepoToCartProducts(productModels, cart.getCartProducts()));
+            .cartProducts(mapRepoToCartProducts(products, cart.getCartProducts()));
     }
 
-    private static Set<CartProductTO> mapRepoToCartProducts(final Set<ProductModel> productModels, final Set<CartProductModel> cartProductModels) {
+    private static Set<CartProductTO> mapRepoToCartProducts(final Set<ProductModel> products, final Set<CartProductModel> cartProducts) {
 
-        return productModels.stream().map(product -> {
+        return products.stream().map(product -> {
 
-            final CartProductModel cartProductModel = cartProductModels.stream()
+            final CartProductModel cartProductModel = cartProducts.stream()
                 .filter(cartProduct -> cartProduct.getProductId().equals(product.getId()))
                 .findFirst()
                 .orElseThrow(() -> new StoreResourceNotFoundException(
                     String.format(
                         "Provided product models and cart product models does not match. ProductModels: %s, CartProductModels: %s",
-                        productModels,
-                        cartProductModels
+                        products,
+                        cartProducts
                     )
                 ));
 

@@ -52,6 +52,15 @@ public interface ProductService {
     ProductModel updateProductQuantity(final String productId, final int quantity);
 
     /**
+     * Method that updates product quantity by reverting it back
+     * 
+     * @param productId ID of the product
+     * @param quanity quantity of the product
+     * @return updated {@link ProductModel}
+     */
+    ProductModel revertBackProductQuantity(final String productId, final int quanity); 
+
+    /**
      * Method that sets visible status of {@link ProductModel} to be false
      * 
      * @param id ID of the product

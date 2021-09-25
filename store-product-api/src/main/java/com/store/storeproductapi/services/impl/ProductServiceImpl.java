@@ -58,6 +58,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<ProductModel> findAll(int page) {
+        final PageRequest pageRequest = PageRequest.of(page, SIZE);
+
+        return productRepository.findAll(pageRequest);
+    }
+
+    @Override
     public ProductModel createProduct(String title, float price, String description, String imgUrl, int quantity) {
         ArgumentVerifier.verifyNotNull(title, description, imgUrl);
         
@@ -119,6 +126,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductModel revertBackProductQuantity(String productId, int quanity) {
+        ArgumentVerifier.verifyNotNull(productId);
+
+        final ProductModel productModel = findById(productId);
+
+        LOGGER.info("Updating product quantity {} for product with product id {}", quanity, productId);
+
+        productModel.setQuantity(productModel.getQuantity() + quanity);
+        final ProductModel updatedProduct = productRepository.save(productModel);
+        
+        LOGGER.info("Product {} updated ... OK", productId);
+
+        return updatedProduct;
+    }
+
+    @Override
     public ProductModel removeProduct(String id) {
         ArgumentVerifier.verifyNotNull(id);
         
@@ -146,13 +169,6 @@ public class ProductServiceImpl implements ProductService {
 
         LOGGER.info("Removing product {}", product);
         productRepository.delete(product);
-    }
-
-    @Override
-    public Page<ProductModel> findAll(int page) {
-        final PageRequest pageRequest = PageRequest.of(page, SIZE);
-
-        return productRepository.findAll(pageRequest);
     }
 
 }

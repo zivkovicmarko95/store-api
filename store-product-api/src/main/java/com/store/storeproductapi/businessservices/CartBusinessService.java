@@ -1,6 +1,11 @@
 package com.store.storeproductapi.businessservices;
 
+import java.util.Set;
+
+import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.CartModel;
+import com.store.storeproductapi.models.CartProductModel;
+import com.store.storeproductapi.models.ProductModel;
 import com.store.storeproductapi.services.CartService;
 import com.store.storeproductapi.services.ProductService;
 import com.store.storeproductapi.utils.ArgumentVerifier;
@@ -10,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 @Service
 public class CartBusinessService {
@@ -42,6 +50,24 @@ public class CartBusinessService {
     }
 
     /**
+     * Method that adds product to cart
+     * 
+     * @param cartId ID of the cart
+     * @param productId ID of the product
+     * @param accountId ID of the account
+     * @param quantity Quantity of the product
+     * @return Tuple of updated {@link CartModel} and updated {@link ProductModel}
+     */
+    public Tuple2<CartModel, ProductModel> addProductToCart(final String cartId, final String productId, final String accountId, final int quantity) {
+        ArgumentVerifier.verifyNotNull(cartId, productId, accountId);
+
+        final CartModel cart = cartService.addToCart(cartId, accountId, productId, quantity);
+        final ProductModel product = productService.updateProductQuantity(productId, quantity);
+
+        return Tuples.of(cart, product);
+    }
+
+    /**
      * Method that removes product from cart. The method will remove cart if it is empty
      * 
      * @param cartId ID of the cart
@@ -51,9 +77,25 @@ public class CartBusinessService {
     public void removeProductFromCart(final String cartId, final String accountId, final String productId) {
         ArgumentVerifier.verifyNotNull(cartId, accountId, productId);
 
-        final CartModel cart = cartService.removeProductFromCart(cartId, accountId, productId);
+        final CartModel cart = cartService.findById(cartId);
+        final Set<CartProductModel> cartProducts = cart.getCartProducts();
 
-        if (CollectionUtils.isEmpty(cart.getCartProducts())) {
+        final CartProductModel cartProduct = cartProducts.stream()
+                .filter(product -> product.getProductId().equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new StoreResourceNotFoundException(
+                    String.format(
+                        "Product with id %s is not found in the cart with id %s",
+                        productId,
+                        cartId
+                    )
+                ));
+                
+        this.productService.revertBackProductQuantity(productId, cartProduct.getSelectedQuantity());
+
+        final CartModel updatedCart = cartService.removeProductFromCart(cartId, accountId, productId);
+
+        if (CollectionUtils.isEmpty(updatedCart.getCartProducts())) {
             
             LOGGER.info("Removing cart because it does not have any assigned product. Cart id: {}", cartId);
             
