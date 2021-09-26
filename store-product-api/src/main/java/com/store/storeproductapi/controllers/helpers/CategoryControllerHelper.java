@@ -35,6 +35,7 @@ public class CategoryControllerHelper {
     @Autowired
     private CategoryBusinessService categoryBusinessService;
 
+    // path -> /categories/{category_id}
     public CategoryTO categoriesCategoryIdGet(final String categoryId) {
         
         final CategoryModel category = categoryService.findById(categoryId);
@@ -47,6 +48,7 @@ public class CategoryControllerHelper {
         return CategoryMapper.mapRepoToCategoryTO(category, products);
     }
 
+    // path -> /categories
     public Set<CategoryTO> categoriesGet() {
 
         final List<CategoryModel> categories = this.categoryService.findAll();
@@ -57,7 +59,8 @@ public class CategoryControllerHelper {
         return categoryTOs;
     }
 
-    public CategoryTO categoriesPost(final CategoryCreate categoryCreate) {
+    // path -> internal/categories
+    public CategoryTO internalCategoriesPost(final CategoryCreate categoryCreate) {
 
         final String title = categoryCreate.getTitle();
         final String description = categoryCreate.getDescription();
@@ -67,7 +70,8 @@ public class CategoryControllerHelper {
         return CategoryMapper.mapRepoToCategoryTO(category, Set.of());
     }
 
-    public CategoryTO categoriesCategoryIdProductsProductIdPost(final String categoryId, final String productId) {
+    // path -> internal/categories/{category_id}/products/{product_id}
+    public CategoryTO internalCategoriesCategoryIdProductsProductIdPost(final String categoryId, final String productId) {
 
         final Tuple2<CategoryModel, ProductModel> categoryProduct = categoryBusinessService.assignProductToCategory(productId, categoryId);
         final CategoryModel category = categoryProduct.getT1();
@@ -80,7 +84,8 @@ public class CategoryControllerHelper {
         return CategoryMapper.mapRepoToCategoryTO(category, products);
     }
 
-    public CategoryTO categoriesCategoryIdProductsAssignPost(final String categoryId, final Set<String> productIds) {
+    // path -> internal/categories/{category_id}/assign
+    public CategoryTO internalCategoriesCategoryIdProductsAssignPost(final String categoryId, final Set<String> productIds) {
 
         final Tuple2<CategoryModel, Set<ProductModel>> categoryProducts = this.categoryBusinessService.assignProductsToCategory(productIds, categoryId);
         final CategoryModel category = categoryProducts.getT1();
@@ -93,6 +98,7 @@ public class CategoryControllerHelper {
         return CategoryMapper.mapRepoToCategoryTO(category, products);
     }
 
+    // path -> internal/categories/{category_id}
     public DeleteResultTO internalCategoriesCategoryIdDelete(final String categoryId) {
 
         final CategoryModel categoryModel = this.categoryService.removeCategory(categoryId);

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.store.storeproductapi.businessservices.CartBusinessService;
+import com.store.storeproductapi.exceptions.StoreGeneralException;
 import com.store.storeproductapi.mappers.CartMapper;
 import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
@@ -95,8 +96,37 @@ public class CartControllerHelper {
         return CartMapper.mapRepoToCartTO(cartModel, productModels);
     }
 
-    // path -> /internal/carts
-    public DeleteResultTO internalCartsDelete(final String cartId) {
+    // method used for removing products from cart
+    // path -> /carts/remove
+    public CartTO cartsRemoveDelete(final Cart cart) {
+
+        final String cartId = cart.getCartId();
+        final String productId = cart.getProductId();
+        final String accountId = cart.getAccountId();
+
+        LOGGER.info("Removing product {} from the cart {}", cart.getProductId(), cart.getCartId());
+
+        this.cartBusinessService.removeProductFromCart(cartId, accountId, productId);
+        
+        try {
+            final CartModel cartModel = cartService.findById(cartId);
+            final Set<CartProductModel> cartProductModels = cartModel.getCartProducts();
+
+            final Set<ProductModel> products = cartProductModels.stream()
+                    .map(cartProductModel -> this.productService.findById(cartProductModel.getProductId()))
+                    .collect(Collectors.toSet());
+
+            return CartMapper.mapRepoToCartTO(cartModel, products);
+        } catch (StoreGeneralException e) {
+            LOGGER.info("Cart with id is not found {}. Cart is empty and removed from database", cartId);
+            LOGGER.info("{} ------> {}", cartId, e.getMessage());
+
+            return new CartTO();
+        }
+    }
+
+    // path -> /internal/carts/{cart_id}
+    public DeleteResultTO internalCartsCartIdDelete(final String cartId) {
 
         cartService.removeCart(cartId);
 

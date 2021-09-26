@@ -76,7 +76,7 @@ public class ProductControllerHelper {
         return ProductMapper.mapRepoToProductTO(createdProduct);
     }
 
-    // path -> /internal/products
+    // path -> /internal/products/{product_id}
     public DeleteResultTO internalProductsProductIdDelete(final String productId) {
 
         final ProductModel removedProduct = this.productService.removeProduct(productId);
@@ -88,7 +88,7 @@ public class ProductControllerHelper {
                 .message("Product has been removed.");
     }
 
-    // path -> /internal/products/remove
+    // path -> /internal/products/{product_id}/remove
     public DeleteResultTO internalProductsProductIdRemoveDelete(final String productId) {
 
         LOGGER.info("Removing product with product Id {} from the DB", productId);
