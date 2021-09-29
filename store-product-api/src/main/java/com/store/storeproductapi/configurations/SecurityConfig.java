@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
-    private final String jwkSetUri = "http://keycloak:8080/auth/realms/sample-realm/protocol/openid-connect/certs";
+    private final String jwkSetUri = "http://keycloak:8080/auth/realms/store-api/protocol/openid-connect/certs";
     private final String[] permitUrls = { "/api/categories/**", "/api/products/**" };
 
     @Override

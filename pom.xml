@@ -25,6 +25,7 @@
 
     <modules>
         <module>store-product-api</module>
+		<module>store-auth-api</module>
     </modules>
 
     <!-- TODO: dodati health checker, spring consul i slicno -->

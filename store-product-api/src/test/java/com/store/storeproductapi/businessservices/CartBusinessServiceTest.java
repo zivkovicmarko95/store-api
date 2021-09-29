@@ -93,4 +93,21 @@ class CartBusinessServiceTest {
         verify(this.cartService).removeProductFromCart(cartId, accountId, productId);
     }
 
+    @Test
+    void removeCart() {
+
+        final CartModel cartModel = PODAM_FACTORY.manufacturePojo(CartModel.class);
+        final String cartId = cartModel.getId();
+
+        when(this.cartService.findById(cartId)).thenReturn(cartModel);
+        
+        this.cartBusinessService.removeCart(cartId);
+
+        verify(this.cartService).findById(cartId);
+        verify(this.cartService).removeCart(cartId);
+        cartModel.getCartProducts().forEach(cartProduct -> {
+            verify(this.productService).revertBackProductQuantity(cartProduct.getProductId(), cartProduct.getSelectedQuantity());
+        });
+    }
+
 }

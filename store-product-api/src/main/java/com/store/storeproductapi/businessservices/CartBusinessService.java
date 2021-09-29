@@ -103,4 +103,24 @@ public class CartBusinessService {
         }
     }
 
+    /**
+     * Method used for removing cart and reverting back product quantities
+     * 
+     * @param cartId ID of the cart
+     */
+    public void removeCart(final String cartId) {
+        ArgumentVerifier.verifyNotNull(cartId);
+
+        final CartModel cartModel = this.cartService.findById(cartId);
+        final Set<CartProductModel> cartProductModels = cartModel.getCartProducts();
+
+        this.cartService.removeCart(cartId);
+
+        cartProductModels.forEach(cartProduct -> {
+            this.productService.revertBackProductQuantity(cartProduct.getProductId(), cartProduct.getSelectedQuantity());
+        });
+        
+        LOGGER.info("Removed cart with cartId: {}", cartId);
+    }
+
 }

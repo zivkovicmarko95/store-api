@@ -29,14 +29,17 @@ public class CartControllerHelper {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(CartControllerHelper.class);
 
-    @Autowired
-    private CartBusinessService cartBusinessService;
+    private final CartBusinessService cartBusinessService;
+    private final CartService cartService;
+    private final ProductService productService;
 
     @Autowired
-    private CartService cartService;
-
-    @Autowired
-    private ProductService productService;
+    public CartControllerHelper(CartBusinessService cartBusinessService, CartService cartService, 
+            ProductService productService) {
+        this.cartBusinessService = cartBusinessService;
+        this.cartService = cartService;
+        this.productService = productService;
+    }
 
     // path -> /carts/{id}
     public CartTO cartsCartIdGet(final String cartId) {
@@ -72,7 +75,7 @@ public class CartControllerHelper {
     }
 
     // method used for adding products to cart
-    // path -> /carts/add
+    // path -> /carts/add-product
     public CartTO cartsAddPost(final Cart cart) {
         
         final String cartId = cart.getCartId();
@@ -128,7 +131,7 @@ public class CartControllerHelper {
     // path -> /internal/carts/{cart_id}
     public DeleteResultTO internalCartsCartIdDelete(final String cartId) {
 
-        cartService.removeCart(cartId);
+        cartBusinessService.removeCart(cartId);
 
         LOGGER.info("Cart with id {} has been removed", cartId);
 
