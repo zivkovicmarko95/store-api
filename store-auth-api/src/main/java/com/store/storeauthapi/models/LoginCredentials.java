@@ -2,6 +2,8 @@ package com.store.storeauthapi.models;
 
 import java.util.Objects;
 
+import com.store.storesharedmodule.utils.ArgumentVerifier;
+
 public class LoginCredentials {
     
     private String username;
@@ -11,7 +13,8 @@ public class LoginCredentials {
     }
 
     public LoginCredentials(String username, String password) {
-        // TODO: add argument verifier - verify not null
+        ArgumentVerifier.verifyNotNull(username, password);
+        
         this.username = username;
         this.password = password;
     }

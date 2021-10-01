@@ -3,7 +3,7 @@ package com.store.storeproductapi.models;
 import java.util.Objects;
 import java.util.Set;
 
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

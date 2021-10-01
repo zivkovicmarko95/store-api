@@ -5,22 +5,14 @@
 	
 	<parent>
 		<groupId>com.store</groupId>
-    	<artifactId>store-api</artifactId>
+		<artifactId>store-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
 	<groupId>com.store</groupId>
-	<artifactId>store-product-api</artifactId>
+	<artifactId>store-shared-module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>store-product-api</name>
+	<name>store-shared-module</name>
 	<description>Demo project for Spring Boot</description>
-
-	<dependencies>
-		<dependency>
-			<groupId>com.store</groupId>
-			<artifactId>store-shared-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-
+	
 </project>

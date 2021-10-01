@@ -9,7 +9,7 @@ import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.CategoryModel;
 import com.store.storeproductapi.repositories.CategoryRepository;
 import com.store.storeproductapi.services.CategoryService;
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -21,12 +21,14 @@
 
 	<dependencies>
 		
+		<!-- feign client -->
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-		 <dependency>
+		<!-- keycloak -->
+		<dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
 			<version>${keycload-adapter-version}</version>
@@ -49,6 +51,13 @@
             <artifactId>keycloak-spring-boot-adapter</artifactId>
 			<version>${keycload-adapter-version}</version>
         </dependency>
+
+		<!-- Shared module -->
+		<dependency>
+			<groupId>com.store</groupId>
+			<artifactId>store-shared-module</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	

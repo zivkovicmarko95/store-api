@@ -6,6 +6,7 @@ import java.util.Map;
 import com.store.storeauthapi.proxy.AuthTokenServiceProxy;
 import com.store.storeauthapi.services.LoginService;
 import com.store.storeauthapi.utils.JwtUtils;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<String, ?> login(String username, String password) {
-        
+        ArgumentVerifier.verifyNotNull(username, password);
+
         Map<String, Object> form = new HashMap<>();
         final String grantType = "password";
 

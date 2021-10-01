@@ -81,16 +81,18 @@ class CartBusinessServiceTest {
         final CartModel cart = PODAM_FACTORY.manufacturePojo(CartModel.class);
         final String cartId = cart.getId();
         final String accountId = cart.getAccountId();
-        final String productId = cart.getCartProducts().stream()
-            .findAny().get()
-            .getProductId();
+        final CartProductModel cartProduct = cart.getCartProducts().stream()
+            .findAny().get();
 
-        when(this.cartService.removeProductFromCart(cartId, accountId, productId))
+        when(this.cartService.findById(cartId)).thenReturn(cart);
+        when(this.cartService.removeProductFromCart(cartId, accountId, cartProduct.getProductId()))
             .thenReturn(cart);
 
-        this.cartBusinessService.removeProductFromCart(cartId, accountId, productId);
+        this.cartBusinessService.removeProductFromCart(cartId, accountId, cartProduct.getProductId());
 
-        verify(this.cartService).removeProductFromCart(cartId, accountId, productId);
+        verify(this.cartService).findById(cartId);
+        verify(this.productService).revertBackProductQuantity(cartProduct.getProductId(), cartProduct.getSelectedQuantity());
+        verify(this.cartService).removeProductFromCart(cartId, accountId, cartProduct.getProductId());
     }
 
     @Test

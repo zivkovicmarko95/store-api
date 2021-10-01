@@ -1,7 +1,7 @@
 package com.store.storeauthapi.exceptions.handlers;
 
-import com.store.storeauthapi.models.HttpResponse;
-import com.store.storeauthapi.utils.HttpUtils;
+import com.store.storesharedmodule.models.HttpResponse;
+import com.store.storesharedmodule.utils.HttpUtils;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

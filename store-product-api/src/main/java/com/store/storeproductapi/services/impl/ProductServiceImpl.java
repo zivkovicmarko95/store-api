@@ -6,7 +6,7 @@ import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.ProductModel;
 import com.store.storeproductapi.repositories.ProductRepository;
 import com.store.storeproductapi.services.ProductService;
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

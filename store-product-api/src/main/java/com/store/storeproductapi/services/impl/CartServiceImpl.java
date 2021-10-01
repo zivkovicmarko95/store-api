@@ -9,7 +9,7 @@ import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
 import com.store.storeproductapi.repositories.CartRepository;
 import com.store.storeproductapi.services.CartService;
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

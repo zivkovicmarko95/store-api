@@ -7,7 +7,7 @@ import com.store.storeproductapi.models.CategoryModel;
 import com.store.storeproductapi.models.ProductModel;
 import com.store.storeproductapi.services.CategoryService;
 import com.store.storeproductapi.services.ProductService;
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

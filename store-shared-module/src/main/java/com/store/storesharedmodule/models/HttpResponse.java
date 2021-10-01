@@ -1,11 +1,12 @@
-package com.store.storeauthapi.models;
+package com.store.storesharedmodule.models;
 
 import java.util.Date;
 import java.util.Objects;
 
+import com.store.storesharedmodule.utils.ArgumentVerifier;
+
 import org.springframework.http.HttpStatus;
 
-// TODO: move this class in shared module
 /**
  * Represents custom HTTP response
  */
@@ -21,7 +22,8 @@ public class HttpResponse {
     }
 
     public HttpResponse(int httpStatusCode, HttpStatus httpStatus, String reason, String message) {
-        // TODO: add argument verifier - verify not null
+        ArgumentVerifier.verifyNotNull(httpStatus, reason, message);
+
         this.timeStamp = new Date();
         this.httpStatusCode = httpStatusCode;
         this.httpStatus = httpStatus;

@@ -13,7 +13,7 @@
     <artifactId>store-api</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>store-app</name>
+    <name>store-api</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -26,6 +26,7 @@
     <modules>
         <module>store-product-api</module>
 		<module>store-auth-api</module>
+		<module>store-shared-module</module>
     </modules>
 
     <!-- TODO: dodati health checker, spring consul i slicno -->

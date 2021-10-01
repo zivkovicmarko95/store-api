@@ -2,7 +2,7 @@ package com.store.storeproductapi.models;
 
 import java.util.Objects;
 
-import com.store.storeproductapi.utils.ArgumentVerifier;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 public class CartProductModel {
     

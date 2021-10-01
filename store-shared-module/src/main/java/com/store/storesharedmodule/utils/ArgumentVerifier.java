@@ -1,4 +1,4 @@
-package com.store.storeproductapi.utils;
+package com.store.storesharedmodule.utils;
 
 import java.util.Collection;
 import java.util.stream.IntStream;

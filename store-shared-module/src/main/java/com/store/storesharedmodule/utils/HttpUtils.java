@@ -1,6 +1,8 @@
-package com.store.storeauthapi.utils;
+package com.store.storesharedmodule.utils;
 
-import com.store.storeauthapi.models.HttpResponse;
+
+
+import com.store.storesharedmodule.models.HttpResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
