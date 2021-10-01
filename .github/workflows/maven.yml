@@ -38,13 +38,15 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
+    - name: List running containers
+        run: docker ps -a
+
     - name: Setup Keycloak realm
         run: |
             docker exec -it keycloak sh -c 
             "/opt/jboss/keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user marko --password marko && 
             /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=testrealm -s enabled=true && 
             /opt/jboss/keycloak/bin/kcadm.sh create partialImport -r testrealm -s ifResourceExists=SKIP -o -f /src/main/resources/keycloak/realm.json"
-
       
     - name: Build with Maven
       run: mvn -B package --file pom.xml -pl !store-shared-module
