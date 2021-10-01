@@ -14,8 +14,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # If you need DB like MySQL then define service below.
-    # Example for PostgreSQL and Redis can be found here:
     # https://github.com/actions/example-services/tree/master/.github/workflows
     services:
       keycloak: 
@@ -33,4 +31,4 @@ jobs:
         cache: maven
       
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -pl !store-shared-module
+      run: mvn -B package --file pom.xml
