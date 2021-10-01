@@ -18,10 +18,10 @@ jobs:
     # Example for PostgreSQL and Redis can be found here:
     # https://github.com/actions/example-services/tree/master/.github/workflows
     services:
-      - keycloak: 
-          image: keycloak
-          ports:
-            - 8080
+      keycloak: 
+        image: keycloak
+        ports:
+          - 8080
 
     steps:
     - uses: actions/checkout@v2
