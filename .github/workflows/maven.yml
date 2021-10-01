@@ -17,7 +17,7 @@ jobs:
     # https://github.com/actions/example-services/tree/master/.github/workflows
     services:
       keycloak: 
-        image: jboss/keycloak
+        image: jboss/keycloak:15.0.2
         ports:
           - 8080
 
@@ -29,6 +29,13 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
       
     - name: Build with Maven
       run: mvn -B package --file pom.xml
