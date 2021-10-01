@@ -9,15 +9,6 @@ on:
   pull_request:
     branches: [ main ]
 
-check:
-  image: curlimages/curl
-  services:
-    - name: jboss/keycloak:11.0.0
-      alias: keycloak
-  script:
-    - curl http://keycloak:8080
-    - curl http://keycloak:8080/auth/
-
 jobs:
   build:
 
