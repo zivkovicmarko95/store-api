@@ -1,7 +1,5 @@
 package com.store.storesharedmodule.utils;
 
-
-
 import com.store.storesharedmodule.models.HttpResponse;
 
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,7 @@ public class HttpUtils {
     }
 
     public static ResponseEntity<HttpResponse> createHttpResponse(final HttpStatus httpStatus, final String message) {
-        // TODO: add argument verifier - verify not null
+        ArgumentVerifier.verifyNotNull(httpStatus, message);
 
         final HttpResponse httpResponse = new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase(), message);
 

@@ -3,6 +3,8 @@ package com.store.storesharedmodule.utils;
 import java.util.Collection;
 import java.util.stream.IntStream;
 
+import com.store.storesharedmodule.exceptions.StoreArgumentException;
+
 import org.springframework.util.CollectionUtils;
 
 public class ArgumentVerifier {
@@ -23,7 +25,7 @@ public class ArgumentVerifier {
             Object obj = objects[i];
 
             if (obj == null) {
-                throw new RuntimeException(
+                throw new StoreArgumentException(
                     "Provided parameter is empty"
                 );
             }
@@ -42,7 +44,7 @@ public class ArgumentVerifier {
             Collection<?> collection = collections[i];
 
             if (CollectionUtils.isEmpty(collection)) {
-                throw new RuntimeException(
+                throw new StoreArgumentException(
                     "Provided collection is empty or null"
                 );
             }
