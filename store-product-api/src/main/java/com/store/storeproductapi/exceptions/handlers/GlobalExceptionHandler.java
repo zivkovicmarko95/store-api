@@ -83,7 +83,9 @@ public class GlobalExceptionHandler implements ErrorController {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<HttpResponse> internalServerError() {
+    public ResponseEntity<HttpResponse> internalServerError(Exception e) {
+        LOGGER.error(ExceptionUtils.getStackTrace(e));
+        
         return HttpUtils.createHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR, GENERAL_EXCEPTION_MESSAGE);
     }
 
