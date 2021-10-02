@@ -20,12 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final String jwkSetUri = "http://localhost:8080/auth/realms/store-api/protocol/openid-connect/certs";
     private final String[] permitUrls = { "/api/categories/**", "/api/products/**" };
+    private final String internalEndpoints = "/api/internal/**";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorize -> {
             try {
                 authorize.antMatchers(permitUrls).permitAll()
+                    .antMatchers(internalEndpoints).hasRole("admin")
                     .anyRequest().authenticated()
                     .and()
                     .oauth2ResourceServer()
