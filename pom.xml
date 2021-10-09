@@ -24,6 +24,7 @@
     </properties>
 
     <modules>
+		<module>store-api-gateway</module>
 		<module>store-auth-api</module>
         <module>store-product-api</module>
 		<module>store-shared-module</module>
