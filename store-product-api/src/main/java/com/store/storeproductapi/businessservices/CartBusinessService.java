@@ -6,6 +6,7 @@ import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
 import com.store.storeproductapi.models.ProductModel;
+import com.store.storeproductapi.services.AccountService;
 import com.store.storeproductapi.services.CartService;
 import com.store.storeproductapi.services.ProductService;
 import com.store.storesharedmodule.utils.ArgumentVerifier;
@@ -24,11 +25,14 @@ public class CartBusinessService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CartBusinessService.class);
     
+    private final AccountService accountService;
     private final CartService cartService;
     private final ProductService productService;
 
     @Autowired
-    public CartBusinessService(CartService cartService, ProductService productService) {
+    public CartBusinessService(AccountService accountService, CartService cartService, 
+            ProductService productService) {
+        this.accountService = accountService;
         this.cartService = cartService;
         this.productService = productService;
     }
@@ -45,8 +49,12 @@ public class CartBusinessService {
         ArgumentVerifier.verifyNotNull(productId, accountId);
 
         productService.updateProductQuantity(productId, quantity);
+
+        final CartModel cart = cartService.createCart(productId, accountId, quantity);
+
+        accountService.assignCartToAccount(accountId, cart.getId());
         
-        return cartService.createCart(productId, accountId, quantity);
+        return cart;
     }
 
     /**
@@ -100,6 +108,7 @@ public class CartBusinessService {
             LOGGER.info("Removing cart because it does not have any assigned product. Cart id: {}", cartId);
             
             cartService.removeCart(cartId);
+            accountService.unassignCartFromAccount(accountId);
         }
     }
 

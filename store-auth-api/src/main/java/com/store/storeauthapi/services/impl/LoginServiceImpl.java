@@ -6,16 +6,20 @@ import java.util.Map;
 import com.store.storeauthapi.proxy.AuthTokenServiceProxy;
 import com.store.storeauthapi.services.LoginService;
 import com.store.storeauthapi.utils.JwtUtils;
+import com.store.storesharedmodule.constants.EventsExchange;
+import com.store.storesharedmodule.constants.EventsRoutingKeys;
+import com.store.storesharedmodule.models.UserEntity;
 import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.keycloak.representations.AccessToken;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-    
+
     private static final String GRANT_TYPE = "grant_type";
     private static final String CLIENT_ID = "client_id";
     private static final String CLIENT_SECRET = "client_secret";
@@ -30,10 +34,12 @@ public class LoginServiceImpl implements LoginService {
     private String clientSecret;
 
     private final AuthTokenServiceProxy authTokenServiceProxy;
+    private final AmqpTemplate amqpTemplate;
 
     @Autowired
-    public LoginServiceImpl(AuthTokenServiceProxy authTokenServiceProxy) {
+    public LoginServiceImpl(AuthTokenServiceProxy authTokenServiceProxy, AmqpTemplate amqpTemplate) {
         this.authTokenServiceProxy = authTokenServiceProxy;
+        this.amqpTemplate = amqpTemplate;
     }
 
     @Override
@@ -53,8 +59,10 @@ public class LoginServiceImpl implements LoginService {
         final String jwtToken = (String) loginResponse.get(ACCESS_TOKEN);
         final AccessToken accessToken = JwtUtils.decode(jwtToken);
         
-        // TODO: sent subject to store-product-api component
         final String subject = accessToken.getSubject();
+        final UserEntity userEvent = new UserEntity(subject, username);
+
+        amqpTemplate.convertAndSend(EventsExchange.GLOBAL_EXCHANGE.getKey(), EventsRoutingKeys.AUTH_LOGIN_ROUTING_KEY.getKey(), userEvent);
 
         return loginResponse;
     }

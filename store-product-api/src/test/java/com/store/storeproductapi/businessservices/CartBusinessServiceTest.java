@@ -1,7 +1,6 @@
 package com.store.storeproductapi.businessservices;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -11,6 +10,7 @@ import java.util.Set;
 import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
 import com.store.storeproductapi.models.ProductModel;
+import com.store.storeproductapi.services.AccountService;
 import com.store.storeproductapi.services.CartService;
 import com.store.storeproductapi.services.ProductService;
 
@@ -31,6 +31,9 @@ class CartBusinessServiceTest {
     private final static PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
 
     @MockBean
+    private AccountService accountService;
+
+    @MockBean
     private CartService cartService;
 
     @MockBean
@@ -40,12 +43,12 @@ class CartBusinessServiceTest {
 
     @BeforeEach
     void setup() {
-        cartBusinessService = new CartBusinessService(cartService, productService);
+        cartBusinessService = new CartBusinessService(accountService, cartService, productService);
     }
 
     @AfterEach
     void after() {
-        verifyNoMoreInteractions(cartService, productService);
+        verifyNoMoreInteractions(accountService, cartService, productService);
     }
 
     @Test
@@ -73,6 +76,7 @@ class CartBusinessServiceTest {
 
         verify(this.productService).updateProductQuantity(productId, quantity);
         verify(this.cartService).createCart(productId, accountId, quantity);
+        verify(this.accountService).assignCartToAccount(accountId, cart.getId());
     }
 
     @Test

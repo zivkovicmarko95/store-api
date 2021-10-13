@@ -1,5 +1,8 @@
 package com.store.storeauthapi.utils;
 
+import com.store.storeauthapi.exceptions.StoreVerificationException;
+import com.store.storesharedmodule.utils.ArgumentVerifier;
+
 import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
@@ -12,15 +15,19 @@ public class JwtUtils {
     }
 
     public static AccessToken decode(final String jwtToken) {
-        // TODO: add argument verifier
+        ArgumentVerifier.verifyNotNull(jwtToken);
+
         AccessToken token;
         
         try {
             token = TokenVerifier.create(jwtToken, AccessToken.class)
                 .getToken();
         } catch (VerificationException e) {
-            throw new RuntimeException("");
+            throw new StoreVerificationException(
+                "JWT token is not valid."
+            );
         }
+
         return token;
     }
  

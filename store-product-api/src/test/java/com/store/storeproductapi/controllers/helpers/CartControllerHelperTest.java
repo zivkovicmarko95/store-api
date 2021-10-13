@@ -135,6 +135,9 @@ class CartControllerHelperTest {
 
         final CartTO result = this.cartControllerHelper.cartsAddPost(cart);
         
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(cart.getCartId());
+
         verify(this.cartBusinessService).addProductToCart(cartModel.getId(), productModel.getId(), accountId, quantity);
         productModels.forEach(product -> {
             verify(this.productService).findById(product.getId());
