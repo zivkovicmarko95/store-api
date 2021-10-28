@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.store.storeproductapi.businessservices.CartBusinessService;
+import com.store.storeproductapi.businessservices.ProductInventoryBusinessService;
 import com.store.storeproductapi.exceptions.StoreGeneralException;
 import com.store.storeproductapi.models.CartModel;
 import com.store.storeproductapi.models.CartProductModel;
@@ -47,17 +48,20 @@ class CartControllerHelperTest {
     @MockBean
     private ProductService productService;
 
+    @MockBean
+    private ProductInventoryBusinessService productInventoryBusinessService;
+
     private CartControllerHelper cartControllerHelper;
 
     @BeforeEach
     void setup() {
         cartControllerHelper = new CartControllerHelper(cartBusinessService, cartService, 
-                productService);
+                productService, productInventoryBusinessService);
     }
 
     @AfterEach
     void after() {
-        verifyNoMoreInteractions(cartBusinessService, cartService, productService);
+        verifyNoMoreInteractions(cartBusinessService, cartService, productService, productInventoryBusinessService);
     }
 
     @Test
@@ -82,6 +86,7 @@ class CartControllerHelperTest {
         verify(this.cartService).findById(cartId);
 
         productModels.forEach(productModel -> {
+            verify(this.productInventoryBusinessService).verifyProductsQuantity(productModel.getId());
             verify(this.productService).findById(productModel.getId());
         });
     }
@@ -109,6 +114,7 @@ class CartControllerHelperTest {
                 .isEqualTo(cartModel.getCartProducts().stream().findAny().get().getProductId());
 
         verify(this.cartBusinessService).createCartAndAddProduct(productModel.getId(), accountId, quantity);
+        verify(this.productInventoryBusinessService).verifyProductsQuantity(productModel.getId());
         verify(this.productService).findById(productModel.getId());
     }
 
@@ -139,6 +145,7 @@ class CartControllerHelperTest {
         assertThat(result.getId()).isEqualTo(cart.getCartId());
 
         verify(this.cartBusinessService).addProductToCart(cartModel.getId(), productModel.getId(), accountId, quantity);
+        verify(this.productInventoryBusinessService).verifyProductsQuantity(productModel.getId());
         productModels.forEach(product -> {
             verify(this.productService).findById(product.getId());
         });

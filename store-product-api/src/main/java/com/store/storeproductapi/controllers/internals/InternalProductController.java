@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +27,7 @@ public class InternalProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductTO> internalProductsPost(final Product product) {
+    public ResponseEntity<ProductTO> internalProductsPost(@RequestBody final Product product) {
 
         return new ResponseEntity<>(
             productControllerHelper.internalProductsPost(product),
@@ -34,7 +36,7 @@ public class InternalProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResultTO> internalProductsProductIdDelete(final String id) {
+    public ResponseEntity<DeleteResultTO> internalProductsProductIdDelete(@PathVariable final String id) {
 
         return new ResponseEntity<>(
             productControllerHelper.internalProductsProductIdDelete(id),
@@ -43,7 +45,7 @@ public class InternalProductController {
     }
 
     @DeleteMapping("/{id}/remove")
-    public ResponseEntity<DeleteResultTO> internalProductsProductIdRemoveDelete(final String id) {
+    public ResponseEntity<DeleteResultTO> internalProductsProductIdRemoveDelete(@PathVariable final String id) {
 
         return new ResponseEntity<>(
             productControllerHelper.internalProductsProductIdRemoveDelete(id),

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class InternalCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryTO> internalCategoriesPost(final CategoryCreate categoryCreate) {
+    public ResponseEntity<CategoryTO> internalCategoriesPost(@RequestBody final CategoryCreate categoryCreate) {
 
         return new ResponseEntity<>(
             categoryControllerHelper.internalCategoriesPost(categoryCreate),
@@ -37,7 +38,7 @@ public class InternalCategoryController {
     }
 
     @PostMapping("/{categoryId}/assign")
-    public ResponseEntity<CategoryTO> internalCategoriesCategoryIdProductsAssignPost(final String categoryId, 
+    public ResponseEntity<CategoryTO> internalCategoriesCategoryIdProductsAssignPost(@PathVariable final String categoryId, 
             @RequestBody final Set<String> productIds) {
         
         return new ResponseEntity<>(
@@ -47,7 +48,8 @@ public class InternalCategoryController {
     }
 
     @PostMapping("/{categoryId}/products/{productId}")
-    public ResponseEntity<CategoryTO> internalCategoriesCategoryIdProductsProductIdPost(final String categoryId, final String productId) {
+    public ResponseEntity<CategoryTO> internalCategoriesCategoryIdProductsProductIdPost(@PathVariable final String categoryId, 
+            @PathVariable final String productId) {
 
         return new ResponseEntity<>(
             categoryControllerHelper.internalCategoriesCategoryIdProductsProductIdPost(categoryId, productId),
@@ -56,7 +58,7 @@ public class InternalCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResultTO> internalCategoriesCategoryIdDelete(final String id) {
+    public ResponseEntity<DeleteResultTO> internalCategoriesCategoryIdDelete(@PathVariable final String id) {
 
         return new ResponseEntity<>(
             categoryControllerHelper.internalCategoriesCategoryIdDelete(id),

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.store.storeproductapi.businessservices.CartBusinessService;
+import com.store.storeproductapi.businessservices.ProductInventoryBusinessService;
 import com.store.storeproductapi.exceptions.StoreGeneralException;
 import com.store.storeproductapi.mappers.CartMapper;
 import com.store.storeproductapi.models.CartModel;
@@ -32,13 +33,15 @@ public class CartControllerHelper {
     private final CartBusinessService cartBusinessService;
     private final CartService cartService;
     private final ProductService productService;
+    private final ProductInventoryBusinessService productInventoryBusinessService;
 
     @Autowired
     public CartControllerHelper(CartBusinessService cartBusinessService, CartService cartService, 
-            ProductService productService) {
+            ProductService productService, ProductInventoryBusinessService productInventoryBusinessService) {
         this.cartBusinessService = cartBusinessService;
         this.cartService = cartService;
         this.productService = productService;
+        this.productInventoryBusinessService = productInventoryBusinessService;
     }
 
     // path -> /carts/{id}
@@ -48,7 +51,11 @@ public class CartControllerHelper {
         final Set<CartProductModel> cartProducts = cart.getCartProducts();
 
         final Set<ProductModel> products = cartProducts.stream()
-                .map(cartProduct -> this.productService.findById(cartProduct.getProductId()))
+                .map(cartProduct -> {
+                    productInventoryBusinessService.verifyProductsQuantity(cartProduct.getProductId());
+                    
+                    return this.productService.findById(cartProduct.getProductId());
+                })
                 .collect(Collectors.toSet());
 
         return CartMapper.mapRepoToCartTO(cart, products);
@@ -60,6 +67,8 @@ public class CartControllerHelper {
         final String productId = cartCreate.getProductId();
         final String accountId = cartCreate.getAccountId();
         final int quantity = cartCreate.getQuantity();
+
+        productInventoryBusinessService.verifyProductsQuantity(productId);
 
         LOGGER.info("Creating cart - create cart request: {}", cartCreate );
 
@@ -83,6 +92,8 @@ public class CartControllerHelper {
         final String accountId = cart.getAccountId();
         final int quantity = cart.getQuantity();
 
+        productInventoryBusinessService.verifyProductsQuantity(productId);
+        
         LOGGER.info("Adding product {} to the cart {}", cart.getProductId(), cart.getCartId());
 
         final Tuple2<CartModel, ProductModel> cartProduct = this.cartBusinessService.addProductToCart(cartId, productId, accountId, quantity);

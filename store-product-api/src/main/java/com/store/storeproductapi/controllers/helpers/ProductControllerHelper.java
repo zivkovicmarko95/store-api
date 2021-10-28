@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.store.storeproductapi.businessservices.ProductInventoryBusinessService;
 import com.store.storeproductapi.exceptions.ResourceStateException;
 import com.store.storeproductapi.mappers.ProductMapper;
 import com.store.storeproductapi.models.ProductModel;
@@ -24,6 +25,9 @@ public class ProductControllerHelper {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductInventoryBusinessService productInventoryBusinessService;
 
     // path -> /products?id=value1&title=value2
     public ProductTO productsProductIdAndTitleGet(final String productId, final String productTitle) {
@@ -48,6 +52,8 @@ public class ProductControllerHelper {
         } else {
             foundProduct = this.productService.findByTitle(productTitle);
         }
+
+        productInventoryBusinessService.verifyProductsQuantity(productId);
 
         return ProductMapper.mapRepoToProductTO(foundProduct);
     }
