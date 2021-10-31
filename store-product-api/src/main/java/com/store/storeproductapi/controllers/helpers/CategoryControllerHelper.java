@@ -25,15 +25,18 @@ import reactor.util.function.Tuple2;
 public class CategoryControllerHelper {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(CategoryControllerHelper.class);
+    
+    private final CategoryService categoryService;
+    private final ProductService productService;
+    private final CategoryBusinessService categoryBusinessService;
 
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private CategoryBusinessService categoryBusinessService;
+    public CategoryControllerHelper(CategoryService categoryService, ProductService productService, 
+            CategoryBusinessService categoryBusinessService) {
+        this.categoryService = categoryService;
+        this.productService = productService;
+        this.categoryBusinessService = categoryBusinessService;
+    }
 
     // path -> /categories/{category_id}
     public CategoryTO categoriesCategoryIdGet(final String categoryId) {

@@ -23,11 +23,14 @@ public class ProductControllerHelper {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductControllerHelper.class);
 
-    @Autowired
     private ProductService productService;
+    private ProductInventoryBusinessService productInventoryBusinessService;
 
     @Autowired
-    private ProductInventoryBusinessService productInventoryBusinessService;
+    public ProductControllerHelper(ProductService productService, ProductInventoryBusinessService productInventoryBusinessService) {
+        this.productService = productService;
+        this.productInventoryBusinessService = productInventoryBusinessService;
+    }
 
     // path -> /products?id=value1&title=value2
     public ProductTO productsProductIdAndTitleGet(final String productId, final String productTitle) {
@@ -53,7 +56,7 @@ public class ProductControllerHelper {
             foundProduct = this.productService.findByTitle(productTitle);
         }
 
-        productInventoryBusinessService.verifyProductsQuantity(productId);
+        productInventoryBusinessService.verifyProductsQuantity(foundProduct.getId());
 
         return ProductMapper.mapRepoToProductTO(foundProduct);
     }
