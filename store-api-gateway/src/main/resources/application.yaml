@@ -20,7 +20,7 @@ spring:
         - id: storeProductApi
           uri: http://localhost:8001
           predicates:
-            - Path=/api/products/**, /api/categories/**, /api/carts/**
+            - Path=/api/products/**, /api/categories/**, /api/carts/**, /api/internal/accounts/**
 
   main:
     web-application-type: reactive

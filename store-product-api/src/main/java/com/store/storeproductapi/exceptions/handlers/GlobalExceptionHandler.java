@@ -17,6 +17,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -80,6 +81,11 @@ public class GlobalExceptionHandler implements ErrorController {
     @ExceptionHandler(StoreGeneralException.class)
     public ResponseEntity<HttpResponse> storeGeneralException() {
         return HttpUtils.createHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR, GENERAL_EXCEPTION_MESSAGE);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<HttpResponse> messageNotReadableException() {
+        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, "essage");
     }
 
     @ExceptionHandler(Exception.class)

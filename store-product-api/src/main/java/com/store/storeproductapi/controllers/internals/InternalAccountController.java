@@ -8,6 +8,7 @@ import com.store.storeproductapi.transferobjects.DeleteResultTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class InternalAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountTO> internalAccountsPost(@RequestBody final AccountCreate accountCreate) {
+    public ResponseEntity<AccountTO> internalAccountsPost(@Validated @RequestBody final AccountCreate accountCreate) {
         
         return new ResponseEntity<>(
                 accountControllerHelper.internalAccountsPost(accountCreate),
@@ -51,7 +52,7 @@ public class InternalAccountController {
         return new ResponseEntity<>(
             accountControllerHelper.internalAccountsAccountIdDelete(accountId),
             HttpStatus.NO_CONTENT
-            );
+        );
     }
 
     @DeleteMapping("/{accountId}/inactive")
