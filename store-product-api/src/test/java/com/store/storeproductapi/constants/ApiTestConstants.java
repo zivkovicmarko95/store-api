@@ -22,4 +22,12 @@ public class ApiTestConstants {
 
     // public endpoints
 
+    public static final String ACCOUNTS = "/api/accounts";
+    public static final String ACCOUNTS_WITH_ID = ACCOUNTS + "/{account_id}";
+
+    public static final String CARTS = "/api/carts";
+    public static final String CARTS_WITH_ID = CARTS + "/{cart_id}";
+    public static final String CARTS_ADD = CARTS + "/add";
+    public static final String CARTS_REMOVE = CARTS + "/remove";
+    
 }
