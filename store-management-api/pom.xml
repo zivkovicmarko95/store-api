@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.store</groupId>
+		<artifactId>store-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.store</groupId>
+	<artifactId>store-management-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>store-management-api</name>
+	<description>Demo project for Spring Boot</description>
+	
+	<properties>
+		<keycload-adapter-version>15.0.2</keycload-adapter-version>
+	</properties>
+
+	<dependencies>
+	
+		<!-- keycloak -->
+		<dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+			<version>${keycload-adapter-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-2-adapter</artifactId>
+			<version>${keycload-adapter-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-adapter-core</artifactId>
+			<version>${keycload-adapter-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-adapter</artifactId>
+			<version>${keycload-adapter-version}</version>
+        </dependency>
+
+		<!-- Shared module -->
+		<dependency>
+			<groupId>com.store</groupId>
+			<artifactId>store-shared-module</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
