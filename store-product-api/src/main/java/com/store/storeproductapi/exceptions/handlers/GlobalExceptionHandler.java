@@ -1,5 +1,6 @@
 package com.store.storeproductapi.exceptions.handlers;
 
+import java.security.InvalidParameterException;
 import java.util.Objects;
 
 import com.store.storeproductapi.exceptions.ResourceExistException;
@@ -29,6 +30,7 @@ public class GlobalExceptionHandler implements ErrorController {
 
     private final String ERROR_PATH = "api/store/error";
 
+    private static final String INVALID_PARAMETERS = "Invalid parameters exception";
     private final static String RESOURCE_EXIST_MESSAGE = "It's not possible to do any action with provided parameter. Resource exist in the database.";
     private static final String RESOURCE_STATE_MESSAGE = "Resource is in invalid state.";
     private static final String METHOD_IS_NOT_ALLOWED_MESSAGE = "This method is not supported. Please send a '%s' request";
@@ -41,6 +43,11 @@ public class GlobalExceptionHandler implements ErrorController {
         return ERROR_PATH;
     }
     
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<HttpResponse> invalidParameters() {
+        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, INVALID_PARAMETERS);
+    }
+
     @ExceptionHandler(ResourceExistException.class)
     public ResponseEntity<HttpResponse> resourceExist() {
         return HttpUtils.createHttpResponse(HttpStatus.CONFLICT, RESOURCE_EXIST_MESSAGE);

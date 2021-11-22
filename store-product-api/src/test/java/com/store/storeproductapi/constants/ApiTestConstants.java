@@ -29,5 +29,11 @@ public class ApiTestConstants {
     public static final String CARTS_WITH_ID = CARTS + "/{cart_id}";
     public static final String CARTS_ADD = CARTS + "/add";
     public static final String CARTS_REMOVE = CARTS + "/remove";
+
+    public static final String CATEGORIES = "/api/categories";
+    public static final String CATEGORIES_WITH_ID = CATEGORIES + "/{category_id}";
     
+    public static final String PRODUCTS = "/api/products";
+    public static final String PRODUCTS_SEARCH = PRODUCTS + "/search";
+
 }

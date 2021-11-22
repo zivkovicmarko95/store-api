@@ -1,5 +1,6 @@
 package com.store.storeproductapi.controllers;
 
+import java.security.InvalidParameterException;
 import java.util.Set;
 
 import com.store.storeproductapi.controllers.helpers.ProductControllerHelper;
@@ -27,6 +28,12 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<ProductTO> productsProductIdAndTitleGet(@RequestParam(required = false) final String id, 
             @RequestParam(required = false) final String title) {
+
+        if (id == null && title == null) {
+            throw new InvalidParameterException(
+                "Invalid parameters. Please provide products ID or products title, or both product parameters."
+            );
+        }
 
         return new ResponseEntity<>(
             productControllerHelper.productsProductIdAndTitleGet(id, title),
