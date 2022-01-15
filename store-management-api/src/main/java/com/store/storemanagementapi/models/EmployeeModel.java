@@ -7,6 +7,7 @@ import com.store.storemanagementapi.enums.EmployeeStatusEnum;
 import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -17,6 +18,7 @@ public class EmployeeModel {
     private String firstname;
     private String lastname;
     private String address;
+    @Indexed(unique = true)
     private String phoneNumber;
     private int salary;
     private EmployeeStatusEnum employeeStatusEnum;
