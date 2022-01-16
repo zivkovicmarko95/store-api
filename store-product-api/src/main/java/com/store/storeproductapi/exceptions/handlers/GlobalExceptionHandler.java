@@ -30,13 +30,13 @@ public class GlobalExceptionHandler implements ErrorController {
 
     private final String ERROR_PATH = "api/store/error";
 
-    private static final String INVALID_PARAMETERS = "Invalid parameters exception";
     private final static String RESOURCE_EXIST_MESSAGE = "It's not possible to do any action with provided parameter. Resource exist in the database.";
     private static final String RESOURCE_STATE_MESSAGE = "Resource is in invalid state.";
     private static final String METHOD_IS_NOT_ALLOWED_MESSAGE = "This method is not supported. Please send a '%s' request";
     private static final String RESOURCE_NOT_FOUND_MESSAGE = "Resource is not found.";
     private static final String EMPTY_OR_NULL_PARAMETER_MESSAGE = "Provided parameters contain null or empty value.";
     private static final String GENERAL_EXCEPTION_MESSAGE = "Server is unavailbale now. Try again later.";
+    private static final String HTTP_MESSAGE_NOT_READABLE = "Provided HTTP message is not readable.";
 
     @Override
     public String getErrorPath() {
@@ -44,8 +44,8 @@ public class GlobalExceptionHandler implements ErrorController {
     }
     
     @ExceptionHandler(InvalidParameterException.class)
-    public ResponseEntity<HttpResponse> invalidParameters() {
-        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, INVALID_PARAMETERS);
+    public ResponseEntity<HttpResponse> invalidParameters(InvalidParameterException e) {
+        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler(ResourceExistException.class)
@@ -92,7 +92,7 @@ public class GlobalExceptionHandler implements ErrorController {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<HttpResponse> messageNotReadableException() {
-        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, "essage");
+        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, HTTP_MESSAGE_NOT_READABLE);
     }
 
     @ExceptionHandler(Exception.class)
