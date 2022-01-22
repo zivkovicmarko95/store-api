@@ -4,16 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.store.storeproductapi.constants.ApiTestConstants;
-import com.store.storeproductapi.controllers.helpers.ProductControllerHelper;
+import com.store.storeproductapi.controllers.helpers.WishlistControllerHelper;
 import com.store.storeproductapi.exceptions.handlers.GlobalExceptionHandler;
-import com.store.storeproductapi.transferobjects.ProductTO;
+import com.store.storeproductapi.transferobjects.WishlistTO;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -33,48 +31,44 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @WebMvcTest( excludeAutoConfiguration = { OAuth2ClientAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class } )
 @AutoConfigureMockMvc( addFilters = false )
 @ContextConfiguration( classes = {
-    GlobalExceptionHandler.class, ProductController.class
+    GlobalExceptionHandler.class, WishlistController.class
 } )
-class ProductGetAllByMockMvcTest {
+class WishlistRemoveProductByIdMockMvcTest {
     
     private final static PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ProductControllerHelper productControllerHelper;
+    private WishlistControllerHelper wishlistControllerHelper;
 
     @AfterEach
-    void setup() {
-        verifyNoMoreInteractions(productControllerHelper);
+    void after() {
+        verifyNoMoreInteractions(this.wishlistControllerHelper);
     }
 
     @Test
-    @SuppressWarnings("unchecked")
-    void productsProductIdAndTitleGet() throws Exception {
+    void wishlistsWishlistIdRemoveProductIdDelete() throws Exception {
 
-        final int page = PODAM_FACTORY.manufacturePojo(Integer.class);
-        final Set<ProductTO> productTOs = PODAM_FACTORY.manufacturePojo(Set.class, ProductTO.class);
+        final WishlistTO wishlist = PODAM_FACTORY.manufacturePojo(WishlistTO.class);
+        final String wishlistId = wishlist.getId();
+        final String productId = wishlist.getProducts().stream().findAny()
+                .get()
+                .getId();
 
-        when(this.productControllerHelper.productsGet(page))
-                .thenReturn(productTOs);
+        when(this.wishlistControllerHelper.wishlistsWishlistIdRemoveProductIdDelete(wishlistId, productId))
+                .thenReturn(wishlist);
 
-        final ResultActions resultActions = this.mockMvc.perform(get(ApiTestConstants.PRODUCTS)
-                .param("page", String.valueOf(page)))
+        final ResultActions resultActions = this.mockMvc.perform(delete(ApiTestConstants.WISHLISTS_WITH_ID_REMOVE_PRODUCT_ID, wishlistId, productId))
                 .andExpect(status().isOk());
 
-        final Set<ProductTO> resultProducts = objectMapper.readValue(
-                resultActions.andReturn().getResponse().getContentAsString(), 
-                objectMapper.getTypeFactory().constructCollectionLikeType(Set.class, ProductTO.class)        
-        );
+        final WishlistTO result = OBJECT_MAPPER.readValue(resultActions.andReturn().getResponse().getContentAsString(), WishlistTO.class);
 
-        assertThat(resultProducts).isNotNull();
-        assertThat(resultProducts).isNotEmpty();
-        assertThat(resultProducts).containsAll(productTOs);
+        assertThat(result).isEqualTo(wishlist);
 
-        verify(this.productControllerHelper).productsGet(page);
+        verify(this.wishlistControllerHelper).wishlistsWishlistIdRemoveProductIdDelete(wishlistId, productId);
     }
 
 }

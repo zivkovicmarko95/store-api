@@ -36,4 +36,9 @@ public class ApiTestConstants {
     public static final String PRODUCTS = "/api/products";
     public static final String PRODUCTS_SEARCH = PRODUCTS + "/search";
 
+    public static final String WISHLISTS = "/api/wishlists";
+    public static final String WISHLISTS_WITH_ID = WISHLISTS + "/{wishlist_id}";
+    public static final String WISHLISTS_WITH_ID_ADD_PRODUCT_ID = WISHLISTS_WITH_ID + "/add/{product_id}";
+    public static final String WISHLISTS_WITH_ID_REMOVE_PRODUCT_ID = WISHLISTS_WITH_ID + "/remove/{product_id}";
+
 }

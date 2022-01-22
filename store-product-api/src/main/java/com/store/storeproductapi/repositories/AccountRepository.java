@@ -5,7 +5,9 @@ import java.util.Optional;
 import com.store.storeproductapi.models.AccountModel;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AccountRepository extends MongoRepository<AccountModel, String> {
     
     Optional<AccountModel> findByUsername(final String username);

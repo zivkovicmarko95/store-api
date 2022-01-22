@@ -52,6 +52,7 @@ class CategoryGetAllMockMvcTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void categoriesGet() throws Exception {
 
         final Set<CategoryTO> categoryTOs = PODAM_FACTORY.manufacturePojo(Set.class, CategoryTO.class);

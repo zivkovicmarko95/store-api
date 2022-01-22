@@ -128,6 +128,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void findAll() {
 
         final List<CategoryModel> categories = PODAM_FACTORY.manufacturePojo(List.class, CategoryModel.class);
@@ -210,6 +211,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void assignProductsToCategory() {
 
         final CategoryModel category = PODAM_FACTORY.manufacturePojo(CategoryModel.class);
@@ -231,6 +233,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void assignProductsToCategory_categoryNotFound() {
 
         final CategoryModel category = PODAM_FACTORY.manufacturePojo(CategoryModel.class);

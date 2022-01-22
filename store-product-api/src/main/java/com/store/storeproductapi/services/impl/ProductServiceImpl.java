@@ -70,11 +70,7 @@ public class ProductServiceImpl implements ProductService {
         
         LOGGER.info(
             "Creating product with title {}, price {}, description {}, imgUrl {} and quantity {}",
-            title,
-            price,
-            description,
-            imgUrl,
-            quantity
+            title, price, description, imgUrl, quantity
         );
 
         final ProductModel product = new ProductModel()

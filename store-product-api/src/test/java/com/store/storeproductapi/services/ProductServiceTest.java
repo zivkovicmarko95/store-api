@@ -142,6 +142,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void findAll() {
 
         final List<ProductModel> products = PODAM_FACTORY.manufacturePojo(List.class, ProductModel.class);

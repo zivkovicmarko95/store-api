@@ -41,6 +41,7 @@ class ArgumentVerifierTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void verifyNotEmpty() {
 
         final List<Object> list = PODAM_FACTORY.manufacturePojo(List.class, Object.class);
@@ -51,6 +52,7 @@ class ArgumentVerifierTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void verifyNotEmpty_emptyList() {
 
         final Set<Object> set = PODAM_FACTORY.manufacturePojo(Set.class, Object.class);
@@ -63,6 +65,7 @@ class ArgumentVerifierTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void verifyNotEmpty_nullList() {
 
         final Set<Object> set = PODAM_FACTORY.manufacturePojo(Set.class, Object.class);

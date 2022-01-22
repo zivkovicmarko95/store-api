@@ -27,6 +27,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void addParam() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -39,6 +40,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void addParam_paramExists() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -58,6 +60,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void replaceParam() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -74,6 +77,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void replaceParam_paramNotExist() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -91,6 +95,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void getOptionalObjectByKey() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -104,6 +109,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void getObjectByKey() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
@@ -117,6 +123,7 @@ class MultiObjectPayloadTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void getObjectByKey_paramNotExist() {
 
         final FlowParamField<String> flowParamField = PODAM_FACTORY.manufacturePojo(FlowParamField.class, String.class);
