@@ -1,33 +1,29 @@
-package com.store.storemanagementapi.transferobjects;
+package com.store.storemanagementapi.models.api;
 
 import java.util.Objects;
 
-import com.store.storesharedmodule.utils.ArgumentVerifier;
-
-public class StoreTO {
+public class StoreUpdate {
     
     private String id;
     private String city;
     private String street;
     private String streetNumber;
     private String phoneNumber;
-    private String zipCode;
-    private String storeStatus;
+    private String zipcode;
+    private String status;
 
-    public StoreTO() {
-
+    public StoreUpdate() {
     }
 
-    public StoreTO(String id, String city, String street, String streetNumber, String phoneNumber, 
-            String zipCode, String storeStatus) {
-        ArgumentVerifier.verifyNotNull(id, city, street, streetNumber, phoneNumber, zipCode, storeStatus);
+    public StoreUpdate(String id, String city, String street, String streetNumber, 
+            String phoneNumber, String zipcode, String status) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.streetNumber = streetNumber;
         this.phoneNumber = phoneNumber;
-        this.zipCode = zipCode;
-        this.storeStatus = storeStatus;
+        this.zipcode = zipcode;
+        this.status = status;
     }
 
     public String getId() {
@@ -70,54 +66,54 @@ public class StoreTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getZipCode() {
-        return this.zipCode;
+    public String getZipcode() {
+        return this.zipcode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public String getStoreStatus() {
-        return this.storeStatus;
+    public String getStatus() {
+        return this.status;
     }
 
-    public void setStoreStatus(String storeStatus) {
-        this.storeStatus = storeStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public StoreTO id(String id) {
+    public StoreUpdate id(String id) {
         this.id = id;
         return this;
     }
 
-    public StoreTO city(String city) {
+    public StoreUpdate city(String city) {
         this.city = city;
         return this;
     }
 
-    public StoreTO street(String street) {
+    public StoreUpdate street(String street) {
         this.street = street;
         return this;
     }
 
-    public StoreTO streetNumber(String streetNumber) {
+    public StoreUpdate streetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
         return this;
     }
 
-    public StoreTO phoneNumber(String phoneNumber) {
+    public StoreUpdate phoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public StoreTO zipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public StoreUpdate zipcode(String zipcode) {
+        this.zipcode = zipcode;
         return this;
     }
 
-    public StoreTO storeStatus(String storeStatus) {
-        this.storeStatus = storeStatus;
+    public StoreUpdate status(String status) {
+        this.status = status;
         return this;
     }
 
@@ -125,22 +121,22 @@ public class StoreTO {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof StoreTO)) {
+        if (!(o instanceof StoreUpdate)) {
             return false;
         }
-        StoreTO storeTO = (StoreTO) o;
-        return Objects.equals(id, storeTO.id) && 
-                Objects.equals(city, storeTO.city) && 
-                Objects.equals(street, storeTO.street) && 
-                Objects.equals(streetNumber, storeTO.streetNumber) && 
-                Objects.equals(phoneNumber, storeTO.phoneNumber) && 
-                Objects.equals(zipCode, storeTO.zipCode) && 
-                Objects.equals(storeStatus, storeTO.storeStatus);
+        StoreUpdate storeUpdate = (StoreUpdate) o;
+        return Objects.equals(id, storeUpdate.id) && 
+                Objects.equals(city, storeUpdate.city) && 
+                Objects.equals(street, storeUpdate.street) && 
+                Objects.equals(streetNumber, storeUpdate.streetNumber) && 
+                Objects.equals(phoneNumber, storeUpdate.phoneNumber) && 
+                Objects.equals(zipcode, storeUpdate.zipcode) && 
+                Objects.equals(status, storeUpdate.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city, street, streetNumber, phoneNumber, zipCode, storeStatus);
+        return Objects.hash(id, city, street, streetNumber, phoneNumber, zipcode, status);
     }
 
     @Override
@@ -151,8 +147,8 @@ public class StoreTO {
             ", street='" + getStreet() + "'" +
             ", streetNumber='" + getStreetNumber() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", zipCode='" + getZipCode() + "'" +
-            ", storeStatus='" + getStoreStatus() + "'" +
+            ", zipcode='" + getZipcode() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 

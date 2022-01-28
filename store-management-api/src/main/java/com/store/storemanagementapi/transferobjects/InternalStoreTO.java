@@ -1,21 +1,32 @@
 package com.store.storemanagementapi.transferobjects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class InternalStoreTO extends StoreTO {
     
-    private Set<EmployeeTO> employees;
+    private List<EmployeeTO> employees = new ArrayList<>();
 
-    public Set<EmployeeTO> getEmployees() {
-        return this.employees;
+    public InternalStoreTO() {
+
     }
 
-    public void setEmployees(Set<EmployeeTO> employees) {
+    public InternalStoreTO(String id, String city, String street, String streetNumber, String phoneNumber, 
+            String zipCode, String storeStatus, List<EmployeeTO> employees) {
+        super(id, city, street, streetNumber, phoneNumber, zipCode, storeStatus);
         this.employees = employees;
     }
 
-    public InternalStoreTO employees(Set<EmployeeTO> employees) {
+    public List<EmployeeTO> getEmployees() {
+        return this.employees;
+    }
+
+    public void setEmployees(List<EmployeeTO> employees) {
+        this.employees = employees;
+    }
+
+    public InternalStoreTO employees(List<EmployeeTO> employees) {
         this.employees = employees;
         return this;
     }

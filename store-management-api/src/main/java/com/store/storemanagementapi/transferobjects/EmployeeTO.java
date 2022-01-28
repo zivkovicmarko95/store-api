@@ -3,8 +3,6 @@ package com.store.storemanagementapi.transferobjects;
 import java.util.Date;
 import java.util.Objects;
 
-import com.store.storemanagementapi.enums.EmployeeStatusEnum;
-
 public class EmployeeTO {
     
     private String id;
@@ -13,7 +11,7 @@ public class EmployeeTO {
     private String address;
     private String phoneNumber;
     private int salary;
-    private EmployeeStatusEnum employeeStatusEnum;
+    private String employeeStatus;
     private Date startedWorkingDate;
     private Date endOfWorkingDate;
 
@@ -65,12 +63,12 @@ public class EmployeeTO {
         this.salary = salary;
     }
 
-    public EmployeeStatusEnum getEmployeeStatusEnum() {
-        return this.employeeStatusEnum;
+    public String getEmployeeStatus() {
+        return this.employeeStatus;
     }
 
-    public void setEmployeeStatusEnum(EmployeeStatusEnum employeeStatusEnum) {
-        this.employeeStatusEnum = employeeStatusEnum;
+    public void setEmployeeStatus(String employeeStatus) {
+        this.employeeStatus = employeeStatus;
     }
 
     public Date getStartedWorkingDate() {
@@ -119,8 +117,8 @@ public class EmployeeTO {
         return this;
     }
 
-    public EmployeeTO employeeStatusEnum(EmployeeStatusEnum employeeStatusEnum) {
-        this.employeeStatusEnum = employeeStatusEnum;
+    public EmployeeTO employeeStatus(String employeeStatus) {
+        this.employeeStatus = employeeStatus;
         return this;
     }
 
@@ -148,27 +146,27 @@ public class EmployeeTO {
                 Objects.equals(address, employeeTO.address) && 
                 Objects.equals(phoneNumber, employeeTO.phoneNumber) && 
                 salary == employeeTO.salary && 
-                Objects.equals(employeeStatusEnum, employeeTO.employeeStatusEnum) && 
+                Objects.equals(employeeStatus, employeeTO.employeeStatus) && 
                 Objects.equals(startedWorkingDate, employeeTO.startedWorkingDate) && 
                 Objects.equals(endOfWorkingDate, employeeTO.endOfWorkingDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, address, phoneNumber, salary, 
-                employeeStatusEnum, startedWorkingDate, endOfWorkingDate);
+        return Objects.hash(id, firstname, lastname, address, phoneNumber, salary, employeeStatus, 
+                startedWorkingDate, endOfWorkingDate);
     }
 
     @Override
     public String toString() {
-        return "EmployeeTO{" +
+        return "{" +
             " id='" + getId() + "'" +
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
             ", address='" + getAddress() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", salary='" + getSalary() + "'" +
-            ", employeeStatusEnum='" + getEmployeeStatusEnum() + "'" +
+            ", employeeStatus='" + getEmployeeStatus() + "'" +
             ", startedWorkingDate='" + getStartedWorkingDate() + "'" +
             ", endOfWorkingDate='" + getEndOfWorkingDate() + "'" +
             "}";

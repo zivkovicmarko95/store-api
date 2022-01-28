@@ -21,23 +21,23 @@ public class EmployeeModel {
     @Indexed(unique = true)
     private String phoneNumber;
     private int salary;
-    private EmployeeStatusEnum employeeStatusEnum;
+    private EmployeeStatusEnum status;
     private Date startedWorkingDate;
     private Date endOfWorkingDate;
 
     public EmployeeModel() {
     }
 
-    public EmployeeModel(String firstname, String lastname, String address, String phoneNumber, 
-            int salary, EmployeeStatusEnum employeeStatusEnum) {
-        ArgumentVerifier.verifyNotNull(firstname, lastname, address, phoneNumber, employeeStatusEnum);
+    public EmployeeModel(final String firstname, final String lastname, final String address, final String phoneNumber, final int salary, 
+            final EmployeeStatusEnum status) {
+        ArgumentVerifier.verifyNotNull(firstname, lastname, address, phoneNumber, status);
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
-        this.employeeStatusEnum = employeeStatusEnum;
-        this.startedWorkingDate = new Date();
+        this.status = status;
+        this.startedWorkingDate = new Date();;
     }
 
     public String getId() {
@@ -88,12 +88,12 @@ public class EmployeeModel {
         this.salary = salary;
     }
 
-    public EmployeeStatusEnum getEmployeeStatusEnum() {
-        return this.employeeStatusEnum;
+    public EmployeeStatusEnum getStatus() {
+        return this.status;
     }
 
-    public void setEmployeeStatusEnum(EmployeeStatusEnum employeeStatusEnum) {
-        this.employeeStatusEnum = employeeStatusEnum;
+    public void setStatus(EmployeeStatusEnum status) {
+        this.status = status;
     }
 
     public Date getStartedWorkingDate() {
@@ -142,8 +142,8 @@ public class EmployeeModel {
         return this;
     }
 
-    public EmployeeModel employeeStatusEnum(EmployeeStatusEnum employeeStatusEnum) {
-        this.employeeStatusEnum = employeeStatusEnum;
+    public EmployeeModel status(EmployeeStatusEnum status) {
+        this.status = status;
         return this;
     }
 
@@ -171,15 +171,14 @@ public class EmployeeModel {
                 Objects.equals(address, employeeModel.address) && 
                 Objects.equals(phoneNumber, employeeModel.phoneNumber) && 
                 salary == employeeModel.salary && 
-                Objects.equals(employeeStatusEnum, employeeModel.employeeStatusEnum) && 
+                Objects.equals(status, employeeModel.status) && 
                 Objects.equals(startedWorkingDate, employeeModel.startedWorkingDate) && 
                 Objects.equals(endOfWorkingDate, employeeModel.endOfWorkingDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, address, phoneNumber, salary, 
-                employeeStatusEnum, startedWorkingDate, endOfWorkingDate);
+        return Objects.hash(id, firstname, lastname, address, phoneNumber, salary, status, startedWorkingDate, endOfWorkingDate);
     }
 
     @Override
@@ -191,7 +190,7 @@ public class EmployeeModel {
             ", address='" + getAddress() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             ", salary='" + getSalary() + "'" +
-            ", employeeStatusEnum='" + getEmployeeStatusEnum() + "'" +
+            ", status='" + getStatus() + "'" +
             ", startedWorkingDate='" + getStartedWorkingDate() + "'" +
             ", endOfWorkingDate='" + getEndOfWorkingDate() + "'" +
             "}";

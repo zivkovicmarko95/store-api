@@ -20,13 +20,12 @@ public class ArgumentVerifier {
      * @throws RuntimeException if provided object is null
      */
     public static void verifyNotNull(Object... objects) {
-
         IntStream.range(0, objects.length).forEach(i -> {
             Object obj = objects[i];
 
             if (obj == null) {
                 throw new StoreArgumentException(
-                    "Provided parameter is empty"
+                    String.format("Provided parameter [%d] is null.", i)
                 );
             }
         });
@@ -45,7 +44,7 @@ public class ArgumentVerifier {
 
             if (CollectionUtils.isEmpty(collection)) {
                 throw new StoreArgumentException(
-                    "Provided collection is empty or null"
+                    "Provided collection is empty or null."
                 );
             }
         });
