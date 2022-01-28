@@ -34,7 +34,7 @@ jobs:
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.7.0
       with:
-        mongodb-version: {{}}
+        mongodb-version: {{ matrix.mongodb-version }}
 
     - name: Cache Maven packages
       uses: actions/cache@v2
