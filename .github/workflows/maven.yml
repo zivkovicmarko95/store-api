@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mongodb-version: [ '5.1' ]
+        mongodb-version: [ '5.0' ]
 
     services:
       keycloak: 
