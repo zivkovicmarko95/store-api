@@ -71,7 +71,7 @@ class InternalEmployeeUpdateMockMvcTest {
         when(this.employeeService.updateEmployee(id, firstname, lastname, address, phoneNumber, salary))
                 .thenReturn(employee);
 
-        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_EMPLOYEES_WITH_ID)
+        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_EMPLOYEES_WITH_ID, id)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(OBJECT_MAPPER.writeValueAsString(employeeUpdate)))
                 .andExpect(status().isOk());
