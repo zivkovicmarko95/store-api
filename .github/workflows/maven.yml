@@ -11,10 +11,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mongodb-version: [ '5.1' ]
 
-    # https://github.com/actions/example-services/tree/master/.github/workflows
     services:
       keycloak: 
         image: jboss/keycloak:15.0.2
@@ -29,6 +30,11 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
+    
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.7.0
+      with:
+        mongodb-version: {{}}
 
     - name: Cache Maven packages
       uses: actions/cache@v2

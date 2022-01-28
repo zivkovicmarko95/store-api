@@ -57,7 +57,6 @@ class CartIT {
             .accountId(ACCOUNT_MODEL.getId());
     private static final String CART_ID = CART_MODEL.getId();
 
-
     private static final Set<ProductModel> PRODUCTS = createProducts();
 
     @Autowired
