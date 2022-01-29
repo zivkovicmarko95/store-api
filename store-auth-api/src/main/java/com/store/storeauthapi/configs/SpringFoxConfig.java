@@ -1,4 +1,4 @@
-package com.store.storeproductapi.configurations;
+package com.store.storeauthapi.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,18 +14,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@Import({SpringDataRestConfiguration.class, BeanValidatorPluginsConfiguration.class})
+@Import({ SpringDataRestConfiguration.class, BeanValidatorPluginsConfiguration.class })
 public class SpringFoxConfig {
     
-    private final static String BASE_PATH = "com.store.storeproductapi";
+    private final static String BASE_PATH = "com.store.storeauthapi";
 
     @Bean
-    public Docket storeProductApi() {
+    public Docket storeAuthApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(BASE_PATH))
                 .paths(PathSelectors.any())
                 .build();
     }
-    
+
 }
