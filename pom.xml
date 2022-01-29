@@ -19,18 +19,19 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.0</spring-cloud.version>
-		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
-		<springfox-version>2.9.2</springfox-version>
-		<springfox-boot-starter>3.0.0</springfox-boot-starter>
-		<commons-lang3>3.12.0</commons-lang3>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+        <springfox-version>2.9.2</springfox-version>
+        <springfox-boot-starter>3.0.0</springfox-boot-starter>
+        <commons-lang3>3.12.0</commons-lang3>
+        <spring-cloud-consul>3.0.0</spring-cloud-consul>
     </properties>
 
     <modules>
-		<module>store-api-gateway</module>
-		<module>store-auth-api</module>
-		<module>store-management-api</module>
+    		<module>store-api-gateway</module>
+    		<module>store-auth-api</module>
+		    <module>store-management-api</module>
         <module>store-product-api</module>
-		<module>store-shared-module</module>
+    		<module>store-shared-module</module>
     </modules>
 
 </project>

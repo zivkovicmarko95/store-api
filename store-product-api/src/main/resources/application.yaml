@@ -8,3 +8,11 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/auth/realms/store-api
+
+  application:
+    name: Product-API
+  
+  cloud:
+    consul:
+      discovery:
+        health-check-interval: 20s

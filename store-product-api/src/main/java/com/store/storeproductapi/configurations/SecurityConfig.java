@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final String jwkSetUri = "http://localhost:8080/auth/realms/store-api/protocol/openid-connect/certs";
     private final String[] permitUrls = {  "/api/categories/**", "/api/products/**", "/v2/api-docs", "/swagger-resources/**", 
-            "/configuration/ui", "/swagger-ui/**" };
+            "/configuration/ui", "/swagger-ui/**", "/actuator/health/**" };
     private final String internalEndpoints = "/api/internal/**";
 
     @Override
