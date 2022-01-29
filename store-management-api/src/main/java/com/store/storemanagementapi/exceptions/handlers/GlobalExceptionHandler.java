@@ -59,7 +59,7 @@ public class GlobalExceptionHandler implements ErrorController {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<HttpResponse> resourceNotFound() {
-        return HttpUtils.createHttpResponse(HttpStatus.CONFLICT, RESOURCE_NOT_FOUND_MESSAGE);
+        return HttpUtils.createHttpResponse(HttpStatus.BAD_REQUEST, RESOURCE_NOT_FOUND_MESSAGE);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
