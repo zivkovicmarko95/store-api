@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final String jwkSetUri = "http://localhost:8080/auth/realms/store-api/protocol/openid-connect/certs";
-    private final String[] permitUrls = {  "/api/stores/**" };
+    private final String[] permitUrls = {  "/api/stores/**", "/v2/api-docs", "/swagger-resources/**", "/configuration/ui", "/swagger-ui/**" };
     private final String internalEndpoints = "/api/internal/**";
 
     @Override

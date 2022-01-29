@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
 @RequestMapping("/api/internal/categories")
+@ApiIgnore
 public class InternalCategoryController {
     
     private final CategoryControllerHelper categoryControllerHelper;

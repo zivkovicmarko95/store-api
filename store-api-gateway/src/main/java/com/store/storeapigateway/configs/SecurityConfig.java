@@ -20,7 +20,8 @@ public class SecurityConfig {
     private final String[] PUBLIC_URLS = {
         "/api/auth/login",
         "/api/products",
-        "/api/categories"
+        "/api/categories",
+        "/api/stores"
     };
 
     @Bean
