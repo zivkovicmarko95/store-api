@@ -46,7 +46,7 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: Start Spring Cloud Consul
-      run: consul agent -server -bootstrap-expect=1 -data-dir=consol-data -ui -bind=127.0.0.1
+      run: consul agent -server -bootstrap-expect=1 -data-dir=consol-data -ui
 
     - name: Cache Maven packages
       uses: actions/cache@v2
