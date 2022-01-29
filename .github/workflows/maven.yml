@@ -22,6 +22,11 @@ jobs:
         ports:
           - 8080
 
+      rabbitmq:
+        image: rabbitmq
+        ports:
+          - 5672
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
