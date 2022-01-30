@@ -20,6 +20,8 @@ jobs:
     services:
       keycloak: 
         image: jboss/keycloak:15.0.2
+        env:  
+          KEYCLOAK_IMPORT: /env/keycloak/store-realm.json
         ports:
           - 8080
 
@@ -46,9 +48,6 @@ jobs:
       uses: supercharge/mongodb-github-action@1.7.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
-
-    - name: Import Keycloak realm
-      run: -b 0.0.0.0 -Djboss.http.port=8081 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/env/keycloak/store-realm -Dkeycloak.migration.strategy=OVERWRITE_EXISTING
 
     - name: Cache Maven packages
       uses: actions/cache@v2
