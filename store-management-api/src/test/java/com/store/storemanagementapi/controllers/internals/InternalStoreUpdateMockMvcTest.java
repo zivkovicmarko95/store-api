@@ -65,8 +65,8 @@ class InternalStoreUpdateMockMvcTest {
         final StoreUpdate storeUpdate = PODAM_FACTORY.manufacturePojo(StoreUpdate.class)
                 .status("OPEN");
         final StoreModel storeModel = PODAM_FACTORY.manufacturePojo(StoreModel.class);
+        final String storeId = storeModel.getId();
 
-        final String id = storeUpdate.getId();
         final String city = storeUpdate.getCity();
         final String street = storeUpdate.getStreet();
         final String streetNumber = storeUpdate.getStreetNumber();
@@ -74,13 +74,13 @@ class InternalStoreUpdateMockMvcTest {
         final String zipcode = storeUpdate.getZipcode();
         final StoreStatusEnum status = StoreStatusEnum.resolveStoreStatus(storeUpdate.getStatus());
 
-        when(this.storeService.updateStore(id, city, street, streetNumber, phoneNumber, zipcode, status))
+        when(this.storeService.updateStore(storeId, city, street, streetNumber, phoneNumber, zipcode, status))
                 .thenReturn(storeModel);
         storeModel.getEmployeeIds().forEach(employeeIds -> {
             when(this.employeeService.getById(employeeIds)).thenReturn(PODAM_FACTORY.manufacturePojo(EmployeeModel.class));
         });
 
-        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_STORES)
+        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_STORES_WITH_ID, storeId)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)    
                     .content(OBJECT_MAPPER.writeValueAsString(storeUpdate)))
                 .andExpect(status().isAccepted());
@@ -90,14 +90,16 @@ class InternalStoreUpdateMockMvcTest {
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(storeModel.getId());
 
-        verify(this.storeService).updateStore(id, city, street, streetNumber, phoneNumber, zipcode, status);
+        verify(this.storeService).updateStore(storeId, city, street, streetNumber, phoneNumber, zipcode, status);
         storeModel.getEmployeeIds().forEach(employeeId -> verify(this.employeeService).getById(employeeId));
     }
 
     @Test
     void internalStoresPut_noRequestBody() throws Exception {
 
-        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_STORES)
+        final String storeId = PODAM_FACTORY.manufacturePojo(String.class);
+
+        final ResultActions resultActions = this.mockMvc.perform(put(ApiTestConstants.INTERNAL_STORES_WITH_ID, storeId)
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 

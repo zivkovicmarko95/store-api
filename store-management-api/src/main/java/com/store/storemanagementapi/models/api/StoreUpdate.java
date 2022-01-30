@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class StoreUpdate {
     
-    private String id;
     private String city;
     private String street;
     private String streetNumber;
@@ -15,23 +14,14 @@ public class StoreUpdate {
     public StoreUpdate() {
     }
 
-    public StoreUpdate(String id, String city, String street, String streetNumber, 
+    public StoreUpdate(String city, String street, String streetNumber, 
             String phoneNumber, String zipcode, String status) {
-        this.id = id;
         this.city = city;
         this.street = street;
         this.streetNumber = streetNumber;
         this.phoneNumber = phoneNumber;
         this.zipcode = zipcode;
         this.status = status;
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCity() {
@@ -82,11 +72,6 @@ public class StoreUpdate {
         this.status = status;
     }
 
-    public StoreUpdate id(String id) {
-        this.id = id;
-        return this;
-    }
-
     public StoreUpdate city(String city) {
         this.city = city;
         return this;
@@ -125,8 +110,7 @@ public class StoreUpdate {
             return false;
         }
         StoreUpdate storeUpdate = (StoreUpdate) o;
-        return Objects.equals(id, storeUpdate.id) && 
-                Objects.equals(city, storeUpdate.city) && 
+        return  Objects.equals(city, storeUpdate.city) && 
                 Objects.equals(street, storeUpdate.street) && 
                 Objects.equals(streetNumber, storeUpdate.streetNumber) && 
                 Objects.equals(phoneNumber, storeUpdate.phoneNumber) && 
@@ -136,14 +120,13 @@ public class StoreUpdate {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city, street, streetNumber, phoneNumber, zipcode, status);
+        return Objects.hash(city, street, streetNumber, phoneNumber, zipcode, status);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", city='" + getCity() + "'" +
+            "city='" + getCity() + "'" +
             ", street='" + getStreet() + "'" +
             ", streetNumber='" + getStreetNumber() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +

@@ -12,4 +12,6 @@ public class ApiTestConstants {
     public static final String STORES_ZIP_CODE = STORES + "/zipcode/{zipcode}";
 
     public static final String INTERNAL_STORES = "/api/internal/stores";
+    public static final String INTERNAL_STORES_WITH_ID = INTERNAL_STORES + "/{storeId}";
+    
 }

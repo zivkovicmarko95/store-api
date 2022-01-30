@@ -16,6 +16,7 @@ import com.store.storemanagementapi.transferobjects.InternalStoreTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,10 +53,9 @@ public class InternalStoreController {
         );
     }
 
-    @PutMapping
-    public ResponseEntity<InternalStoreTO> internalStoresPut(@RequestBody StoreUpdate storeUpdate) {
+    @PutMapping("/{storeId}")
+    public ResponseEntity<InternalStoreTO> internalStoresPut(@PathVariable final String storeId, @RequestBody StoreUpdate storeUpdate) {
 
-        final String id = storeUpdate.getId();
         final String city = storeUpdate.getCity();
         final String street = storeUpdate.getStreet();
         final String streetNumber = storeUpdate.getStreetNumber();
@@ -63,7 +63,7 @@ public class InternalStoreController {
         final String zipcode = storeUpdate.getZipcode();
         final StoreStatusEnum status = StoreStatusEnum.resolveStoreStatus(storeUpdate.getStatus());
 
-        final StoreModel storeModel = this.storeService.updateStore(id, city, street, streetNumber, phoneNumber, zipcode, status);
+        final StoreModel storeModel = this.storeService.updateStore(storeId, city, street, streetNumber, phoneNumber, zipcode, status);
 
         final List<EmployeeModel> employeeModels = storeModel.getEmployeeIds().stream()
                 .map(employeeId -> this.employeeService.getById(employeeId))
