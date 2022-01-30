@@ -24,6 +24,7 @@
         <springfox-boot-starter>3.0.0</springfox-boot-starter>
         <commons-lang3>3.12.0</commons-lang3>
         <spring-cloud-consul>3.0.0</spring-cloud-consul>
+        <keycload-adapter-version>15.0.2</keycload-adapter-version>
     </properties>
 
     <modules>

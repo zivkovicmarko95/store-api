@@ -14,10 +14,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>store-management-api</name>
 	<description>Demo project for Spring Boot</description>
-	
-	<properties>
-		<keycload-adapter-version>15.0.2</keycload-adapter-version>
-	</properties>
 
 	<dependencies>
 	
