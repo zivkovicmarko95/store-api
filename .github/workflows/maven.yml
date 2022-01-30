@@ -20,11 +20,6 @@ jobs:
     services:
       keycloak: 
         image: jboss/keycloak:15.0.2
-        env:  
-          IMPORT: /env/keycloak/store-realm.json
-          USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
-          PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
-        options: docker run -e KEYCLOAK_USER=$USERNAME -e KEYCLOAK_PASSWORD=$PASSWORD -e KEYCLOAK_IMPORT=$IMPORT -v /env/keycloak/store-realm.json:/env/keycloak/store-realm.json jboss/keycloak
         ports:
           - 8080
 
@@ -60,4 +55,4 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
       
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml -pl !store-auth-api
