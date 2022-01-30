@@ -8,7 +8,7 @@ import com.store.storesharedmodule.utils.ArgumentVerifier;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "categories")
 public class CategoryModel {
 
     @Id

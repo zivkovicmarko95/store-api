@@ -16,3 +16,7 @@ spring:
     consul:
       discovery:
         health-check-interval: 20s
+
+mongock:
+  change-logs-scan-package: com.store.storeproductapi.migrations
+  transaction-enabled: true
