@@ -24,7 +24,7 @@ jobs:
           IMPORT: /env/keycloak/store-realm.json
           USERNAME: ${{ secrets.KEYCLOAK_USERNAME }}
           PASSWORD: ${{ secrets.KEYCLOAK_PASSWORD }}
-        options: docker run -e KEYCLOAK_USER=${{ env.USERNAME }} -e KEYCLOAK_PASSWORD=${{ env.PASSWORD }} -e KEYCLOAK_IMPORT=${{ env.IMPORT }} -v /env/keycloak/store-realm.json:/env/keycloak/store-realm.json jboss/keycloak
+        options: docker run -e KEYCLOAK_USER=$USERNAME -e KEYCLOAK_PASSWORD=$PASSWORD -e KEYCLOAK_IMPORT=$IMPORT -v /env/keycloak/store-realm.json:/env/keycloak/store-realm.json jboss/keycloak
         ports:
           - 8080
 
