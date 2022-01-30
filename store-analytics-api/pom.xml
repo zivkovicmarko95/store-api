@@ -8,14 +8,14 @@
     	<artifactId>store-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<groupId>com.store</groupId>
-	<artifactId>store-product-api</artifactId>
+	<artifactId>store-analytics-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>store-product-api</name>
+	<name>store-analytics-api</name>
 	<description>Demo project for Spring Boot</description>
 
-    <dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>

@@ -1,0 +1,28 @@
+
+server:
+  port: 8003
+
+keycloak:
+  realm: "store-api"
+  auth-server-url: "localhost:8080/auth"
+  resource: "sample-client"
+  ssl-required: "external"
+  credentials:
+    secret: "1340bf54-d0d0-4558-9ea5-3a5d1e4ea325"
+  use-resource-role-mappings: true
+  bearer-only: true
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/store-api
+
+  application:
+    name: Analytics-API
+
+  cloud:
+    consul:
+      discovery:
+        health-check-interval: 20s
