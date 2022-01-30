@@ -22,6 +22,10 @@ spring:
           predicates:
             - Path=/api/products/**, /api/categories/**, /api/carts/**, /api/internal/accounts/**
 
+    consul:
+      discovery:
+        health-check-interval: 20s
+
   main:
     web-application-type: reactive
     allow-bean-definition-overriding: true
@@ -40,3 +44,6 @@ spring:
             user-info-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/userinfo
             jwk-set-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/certs
             user-info-authentication-method: header
+
+  application:
+    name: Gateway-API

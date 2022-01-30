@@ -21,7 +21,8 @@ public class SecurityConfig {
         "/api/auth/login",
         "/api/products",
         "/api/categories",
-        "/api/stores"
+        "/api/stores",
+        "/actuator/health"
     };
 
     @Bean

@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableGlobalMethodSecurity( prePostEnabled = true, jsr250Enabled = true )
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     
-    private final String[] permitUrls = { "/api/auth/login", "/v2/api-docs", "/swagger-resources/**",  "/configuration/ui", "/swagger-ui/**" };
+    private final String[] permitUrls = { "/api/auth/login", "/v2/api-docs", "/swagger-resources/**",  "/configuration/ui", "/swagger-ui/**", "/actuator/health/**" };
 
     /**
      * Register Keycloak authentication provider with Spring Boot Atuhentication Manager
