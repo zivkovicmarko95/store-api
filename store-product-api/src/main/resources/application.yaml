@@ -20,3 +20,9 @@ spring:
 mongock:
   change-logs-scan-package: com.store.storeproductapi.migrations
   transaction-enabled: true
+
+store:
+  mongo:
+    noOfTries: 10
+    backOffMillisMin: 100
+    backOffMillisMax: 500

@@ -9,6 +9,7 @@ import com.store.storeproductapi.exceptions.StoreResourceNotFoundException;
 import com.store.storeproductapi.models.AccountModel;
 import com.store.storeproductapi.repositories.AccountRepository;
 import com.store.storeproductapi.services.AccountService;
+import com.store.storesharedmodule.annotations.StoreMongoTransaction;
 import com.store.storesharedmodule.utils.ArgumentVerifier;
 
 import org.slf4j.Logger;
@@ -66,6 +67,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @StoreMongoTransaction
     public AccountModel save(String subjectId, String username) {
         ArgumentVerifier.verifyNotNull(subjectId, username);
         
@@ -87,6 +89,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @StoreMongoTransaction
     public AccountModel updateLoginDate(String id, Date loginDate) {
         ArgumentVerifier.verifyNotNull(id, loginDate);
 
@@ -97,6 +100,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @StoreMongoTransaction
     public AccountModel inactiveAccount(String id) {
         ArgumentVerifier.verifyNotNull(id);
 
@@ -128,6 +132,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @StoreMongoTransaction
     public AccountModel assignCartToAccount(String accountId, String cartId) {
         ArgumentVerifier.verifyNotNull(accountId, cartId);
 
@@ -139,6 +144,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @StoreMongoTransaction
     public AccountModel unassignCartFromAccount(String accountId) {
         ArgumentVerifier.verifyNotNull(accountId);
 
