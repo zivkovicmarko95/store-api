@@ -26,3 +26,9 @@ spring:
     consul:
       discovery:
         health-check-interval: 20s
+
+store:
+  mongo:
+    noOfTries: 10
+    backOffMillisMin: 100
+    backOffMillisMax: 500
