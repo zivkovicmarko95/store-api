@@ -9,7 +9,7 @@ public class CustomExpressionRootBeanDefinitionFactory {
 
     }
 
-    public static BeanDefinition createCustomMethodExpressionRootBeanDefinition(Class clazz) {
+    public static BeanDefinition createCustomMethodExpressionRootBeanDefinition(Class<?> clazz) {
         GenericBeanDefinition genericBeanDefinition = new GenericBeanDefinition();
         
         genericBeanDefinition.setBeanClass(clazz);
