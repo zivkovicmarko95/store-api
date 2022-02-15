@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,6 +38,7 @@ public class GlobalExceptionHandler implements ErrorController {
     private static final String EMPTY_OR_NULL_PARAMETER_MESSAGE = "Provided parameters contain null or empty value.";
     private static final String GENERAL_EXCEPTION_MESSAGE = "Server is unavailbale now. Try again later.";
     private static final String HTTP_MESSAGE_NOT_READABLE = "Provided HTTP message is not readable.";
+    private static final String UNAUTHORIZED_EXCEPTION_MESSAGE = "Not authorized to access this resource.";
 
     @Override
     public String getErrorPath() {
@@ -100,6 +102,13 @@ public class GlobalExceptionHandler implements ErrorController {
         LOGGER.error(ExceptionUtils.getStackTrace(e));
         
         return HttpUtils.createHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR, GENERAL_EXCEPTION_MESSAGE);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<HttpResponse> accessDeniedException(AccessDeniedException e) {
+        LOGGER.info(ExceptionUtils.getStackTrace(e));
+
+        return HttpUtils.createHttpResponse(HttpStatus.UNAUTHORIZED, UNAUTHORIZED_EXCEPTION_MESSAGE);
     }
 
 }

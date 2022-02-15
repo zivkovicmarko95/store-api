@@ -26,7 +26,6 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<Set<CategoryTO>> categoriesGet() {
-        
         return new ResponseEntity<>(
             categoryControllerHelper.categoriesGet(),
             HttpStatus.OK  
