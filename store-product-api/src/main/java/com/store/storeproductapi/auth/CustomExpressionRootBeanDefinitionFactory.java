@@ -19,6 +19,4 @@ public class CustomExpressionRootBeanDefinitionFactory {
         return genericBeanDefinition;
     }
 
-
-
 }
