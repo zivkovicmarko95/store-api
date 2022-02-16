@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.store.storeproductapi.StoreProductApiApplication;
 import com.store.storeproductapi.constants.ApiTestConstants;
+import com.store.storeproductapi.its.config.HttpAuthenticationSecurityConfig;
 import com.store.storeproductapi.models.AccountModel;
 import com.store.storeproductapi.repositories.AccountRepository;
 import com.store.storeproductapi.transferobjects.AccountTO;
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -32,12 +34,19 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
     webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @AutoConfigureMockMvc( addFilters = false )
+@Import(HttpAuthenticationSecurityConfig.class)
 class AccountIT {
     
     private static final PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private static final AccountModel ACCOUNT_MODEL = PODAM_FACTORY.manufacturePojo(AccountModel.class);
+    public static final String ACCOUNT_USERNAME = HttpAuthenticationSecurityConfig.ACCOUNT_USERNAME;
+    public static final String ACCOUNT_SUBJECT_ID = HttpAuthenticationSecurityConfig.ACCOUNT_USERNAME;
+
+    private static final AccountModel ACCOUNT_MODEL = PODAM_FACTORY.manufacturePojo(AccountModel.class)
+            .username(ACCOUNT_USERNAME)
+            .subjectId(ACCOUNT_SUBJECT_ID);
+            
     private static final String ACCOUNT_ID = ACCOUNT_MODEL.getId();
 
     @Autowired

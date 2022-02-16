@@ -9,12 +9,12 @@ import com.store.storeproductapi.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
-public class StoreCustomExpression extends CustomMethodSecurityExpressionRoot {
+public class StoreCustomExpressionRoot extends CustomMethodSecurityExpressionRoot {
 
     @Autowired
     private AccountRepository accountRepository;
 
-    public StoreCustomExpression(Authentication authentication) {
+    public StoreCustomExpressionRoot(Authentication authentication) {
         super(authentication);
     }
 
