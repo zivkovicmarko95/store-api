@@ -4,10 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.store.storeproductapi.StoreProductApiApplication;
 import com.store.storeproductapi.constants.ApiTestConstants;
-import com.store.storeproductapi.its.config.HttpAuthenticationSecurityConfig;
 import com.store.storeproductapi.models.AccountModel;
 import com.store.storeproductapi.repositories.AccountRepository;
 import com.store.storeproductapi.transferobjects.AccountTO;
@@ -20,7 +24,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -34,19 +42,24 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
     webEnvironment = SpringBootTest.WebEnvironment.MOCK
 )
 @AutoConfigureMockMvc( addFilters = false )
-@Import(HttpAuthenticationSecurityConfig.class)
 class AccountIT {
     
     private static final PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public static final String ACCOUNT_USERNAME = HttpAuthenticationSecurityConfig.ACCOUNT_USERNAME;
-    public static final String ACCOUNT_SUBJECT_ID = HttpAuthenticationSecurityConfig.ACCOUNT_USERNAME;
+    private static final String USERNAME = "preferred_username";
+    private static final String SUBJECT_ID = "sub";
 
-    private static final AccountModel ACCOUNT_MODEL = PODAM_FACTORY.manufacturePojo(AccountModel.class)
-            .username(ACCOUNT_USERNAME)
-            .subjectId(ACCOUNT_SUBJECT_ID);
+    private static final AccountModel ACCOUNT_MODEL = PODAM_FACTORY.manufacturePojo(AccountModel.class);
             
+    public static final String ACCOUNT_USERNAME = ACCOUNT_MODEL.getUsername();
+    public static final String ACCOUNT_SUBJECT_ID = ACCOUNT_MODEL.getSubjectId();
+
+    private static final Set<GrantedAuthority> STORE_AUTHORITIES = Set.of(
+            new SimpleGrantedAuthority("ROLE_admin"),
+            new SimpleGrantedAuthority("ROLE_user")
+    );
+
     private static final String ACCOUNT_ID = ACCOUNT_MODEL.getId();
 
     @Autowired
@@ -57,11 +70,15 @@ class AccountIT {
 
     @BeforeEach
     void setup() {
+        final Map<String, Object> userDetails = Map.of(USERNAME, ACCOUNT_USERNAME, SUBJECT_ID, ACCOUNT_SUBJECT_ID);
+        SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(generateJwtToken(userDetails), STORE_AUTHORITIES));
+
         this.accountRepository.save(ACCOUNT_MODEL);
     }
 
     @AfterEach
     void after() {
+        SecurityContextHolder.clearContext();
         this.accountRepository.delete(ACCOUNT_MODEL);
     }
 
@@ -87,12 +104,21 @@ class AccountIT {
         final String accountId = PODAM_FACTORY.manufacturePojo(String.class);
 
         final ResultActions resultActions = this.mockMvc.perform(get(ApiTestConstants.ACCOUNTS_WITH_ID, accountId))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnauthorized());
 
         final HttpResponse httpResponse = OBJECT_MAPPER.readValue(resultActions.andReturn().getResponse().getContentAsString(), HttpResponse.class);
 
         assertThat(httpResponse.getMessage())
-            .isEqualTo(String.format("Resource is not found.Account with provided id %s is not found", accountId));
+            .isEqualTo(String.format("Not authorized to access this resource.", accountId));
+    }
+
+    private Jwt generateJwtToken(final Map<String, Object> userDetails) {
+        return new Jwt(
+            PODAM_FACTORY.manufacturePojo(String.class), 
+            new Date().toInstant(),
+            new Date().toInstant().plusSeconds(100),
+            PODAM_FACTORY.manufacturePojo(HashMap.class, String.class, Object.class),
+            userDetails);
     }
 
 }
