@@ -106,6 +106,17 @@ class StoreCustomExpressionRootTest {
     @Test
     void ownsAccount_accountIdAndUsernameNotMatch() {
 
+        final AccountModel accountModel = PODAM_FACTORY.manufacturePojo(AccountModel.class);
+
+        when(this.accountRepository.findById(ACCOUNT_ID)).thenReturn(Optional.of(ACCOUNT_MODEL));
+        when(this.accountRepository.findBySubjectId(ACCOUNT_SUBJECT_ID)).thenReturn(Optional.of(accountModel));
+
+        final boolean result = this.storeCustomExpressionRoot.ownsAccount(ACCOUNT_ID);
+
+        assertThat(result).isFalse();
+
+        verify(this.accountRepository).findById(ACCOUNT_ID);
+        verify(this.accountRepository).findBySubjectId(ACCOUNT_SUBJECT_ID);
     }
     
 }
