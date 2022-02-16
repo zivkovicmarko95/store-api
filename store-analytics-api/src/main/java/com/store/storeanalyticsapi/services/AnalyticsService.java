@@ -1,5 +1,6 @@
 package com.store.storeanalyticsapi.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,6 +40,16 @@ public class AnalyticsService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                     String.format("Analitycs with ID %s is not found.", id)
                 ));
+    }
+
+
+    /**
+     * Return all analytics saved in the database
+     * 
+     * @return List of all {@link AnalyticsModel}
+     */
+    public List<AnalyticsModel> findAll() {
+        return analyticsRepository.findAll();
     }
 
     /**

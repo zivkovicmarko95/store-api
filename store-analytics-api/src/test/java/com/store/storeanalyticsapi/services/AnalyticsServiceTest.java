@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -102,6 +103,23 @@ public class AnalyticsServiceTest {
             .hasNoCause();
 
         verify(this.analyticsRepository).findByAccountId(accountId);
+    }
+
+    @Test
+    void findAll() {
+
+        final List<AnalyticsModel> analyticsModels = PODAM_FACTORY.manufacturePojo(List.class, AnalyticsModel.class);
+
+        when(this.analyticsRepository.findAll()).thenReturn(analyticsModels);
+
+        final List<AnalyticsModel> result = this.analyticsService.findAll();
+
+        assertThat(result).isNotNull();
+        assertThat(result).isNotEmpty();
+        assertThat(result).hasSameSizeAs(analyticsModels);
+        assertThat(result).containsAll(analyticsModels);
+
+        verify(this.analyticsRepository).findAll();
     }
 
     @Test

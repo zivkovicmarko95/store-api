@@ -1,5 +1,6 @@
 package com.store.storeanalyticsapi.mappers;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,14 @@ public class AnalyticsMapper {
     
     private AnalyticsMapper() {
         
+    }
+
+    public static List<AnalyticsTO> mapReposToAnalyticsTOs(final List<AnalyticsModel> analytics) {
+        ArgumentVerifier.verifyNotNull(analytics);
+
+        return analytics.stream()
+                .map(AnalyticsMapper::mapRepoToAnalyticsTO)
+                .collect(Collectors.toList());
     }
 
     public static AnalyticsTO mapRepoToAnalyticsTO(final AnalyticsModel analyticsModel) {

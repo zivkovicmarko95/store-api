@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHanlder implements ErrorController {
+public class GlobalExceptionHandler implements ErrorController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHanlder.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     private final String ERROR_PATH = "api/auth/error";
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 public class CartCreate {
     
     private String productId; 
-    private String accountId; 
+    private String accountId;
     private int quantity;
 
     public CartCreate() {
