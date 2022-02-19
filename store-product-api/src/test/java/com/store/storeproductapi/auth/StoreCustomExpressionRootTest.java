@@ -1,6 +1,7 @@
 package com.store.storeproductapi.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -109,14 +110,14 @@ class StoreCustomExpressionRootTest {
         final AccountModel accountModel = PODAM_FACTORY.manufacturePojo(AccountModel.class);
 
         when(this.accountRepository.findById(ACCOUNT_ID)).thenReturn(Optional.of(ACCOUNT_MODEL));
-        when(this.accountRepository.findBySubjectId(ACCOUNT_SUBJECT_ID)).thenReturn(Optional.of(accountModel));
+        when(this.accountRepository.findBySubjectId(any())).thenReturn(Optional.of(accountModel));
 
         final boolean result = this.storeCustomExpressionRoot.ownsAccount(ACCOUNT_ID);
 
         assertThat(result).isFalse();
 
         verify(this.accountRepository).findById(ACCOUNT_ID);
-        verify(this.accountRepository).findBySubjectId(ACCOUNT_SUBJECT_ID);
+        verify(this.accountRepository).findBySubjectId(any());
     }
     
 }
