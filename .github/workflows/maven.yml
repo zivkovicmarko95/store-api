@@ -39,7 +39,6 @@ jobs:
 
     steps:
     - name: Checkout code
-      run: git update-index --chmod=+x 
       uses: actions/checkout@v2
 
     - name: Set up JDK 11
