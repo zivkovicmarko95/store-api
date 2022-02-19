@@ -19,7 +19,7 @@ jobs:
 
     services:
       keycloak: 
-        image: jboss/keycloak:15:02
+        image: jboss/keycloak
         volumes:
           - "../../env/keycloak/sample-realm.json:/tmp/sample-realm.json"
         ports:
