@@ -18,7 +18,7 @@ jobs:
         mongodb-version: [ '5.0' ]
 
     services:
-      keycloak: 
+      keycloak:
         image: jboss/keycloak
         volumes:
           - ${{ github.workspace }}/env/keycloak/sample-realm.json:/tmp/sample-realm.json"
