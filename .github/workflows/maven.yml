@@ -38,7 +38,6 @@ jobs:
           - 8500:8500
 
     steps:
-    - run: git update-index --chmod=+x ${{ github.workspace }}/env/keycloak/sample-realm.json
     - name: Checkout code
       uses: actions/checkout@v2
 
