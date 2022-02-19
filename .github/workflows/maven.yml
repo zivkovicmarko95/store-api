@@ -19,9 +19,13 @@ jobs:
 
     services:
       keycloak: 
-        image: jboss/keycloak:15.0.2
+        image: jboss/keycloak
+        volumes:
+          - "./env/keycloak/sample-realm.json:/tmp/sample-realm.json"
         ports:
           - 8080:8080
+        env:
+          KEYCLOAK_IMPORT: "/tmp/sample-realm.json -Dkeycloak.profile.feature.upload_scripts=enabled"
 
       rabbitmq:
         image: rabbitmq
@@ -55,4 +59,4 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
       
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -pl !store-auth-api
+      run: mvn -B package --file pom.xml
