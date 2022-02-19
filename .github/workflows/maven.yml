@@ -21,7 +21,7 @@ jobs:
       keycloak: 
         image: jboss/keycloak:15.0.2
         ports:
-          - 8080
+          - 8080:8080
 
       rabbitmq:
         image: rabbitmq
@@ -31,7 +31,7 @@ jobs:
       spring-cloud-consul:
         image: consul:1.11
         ports:
-          - "8500:8500"
+          - 8500:8500
 
     steps:
     - uses: actions/checkout@v2
