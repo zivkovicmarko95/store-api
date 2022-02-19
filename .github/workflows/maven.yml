@@ -38,6 +38,7 @@ jobs:
           - 8500:8500
 
     steps:
+    - run: git update-index --chmod=+x 
     - name: Checkout code
       uses: actions/checkout@v2
 
